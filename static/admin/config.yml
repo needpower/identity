@@ -1,0 +1,16 @@
+backend:
+  name: test-repo
+media_folder: static/assets
+public_folder: assets
+collections:
+  - name: blog
+    label: Наблюдаем за процессом
+    folder: blog
+    create: true
+    identifier_field: name
+    fields:
+      - { name: url, label: URL }
+      - { name: date, label: "Дата публикации", widget: datetime }
+      - { name: title, label: Заголовок }
+      - { name: thumbnail, label: Превью, widget: image }
+      - { name: body, label: Заметки, widget: markdown }
