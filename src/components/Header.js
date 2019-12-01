@@ -9,13 +9,13 @@ const HeaderComponent = props => (
       <Logo>needpower</Logo>
     </LogoWrapper>
     <Nav>
-      <NavLink to="/notes" isActive={isActive("/notes")}>
+      <NavLink to="/notes" activeClassName="active">
         Наблюдаем за процессом
       </NavLink>
-      <NavLink to="/cupboard" isActive={isActive("/cupboard")}>
+      <NavLink to="/cupboard" activeClassName="active">
         Шкаф
       </NavLink>
-      <NavLink to="/contacts" isActive={isActive("/contacts")}>
+      <NavLink to="/contacts" activeClassName="active">
         Об авторе
       </NavLink>
     </Nav>
@@ -35,36 +35,41 @@ const Nav = styled.nav`
 `
 
 const NavLink = styled(Link)`
-  ${({ isActive }) => `
-    background-image: none;
-    border-bottom: ${isActive ? "none" : "1px solid rgba(97, 98, 71, 0.7)"};
-    color: ${isActive ? "#ffffff" : "rgba(97, 98, 71, 1)"};
-    cursor: ${isActive ? "default" : "pointer"};
-    display: inline-block;
-    margin: 0 16px;
-    padding: ${isActive ? "0 16px" : "0"};
-    position: relative;
-    text-decoration: none;
-    text-shadow: ${isActive ? "none" : "inherit"};
+  background-image: none;
+  border-bottom: 1px solid rgba(97, 98, 71, 0.7);
+  color: rgba(97, 98, 71, 1);
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 16px;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+  text-shadow: inherit;
+  &:hover {
+    color: rgba(25, 123, 189, 1);
+  }
+  &.active {
+    border-bottom-color: transparent;
+    color: #ffffff;
+    cursor: default;
+    margin: 0;
+    padding: 0 16px;
+    text-shadow: none;
     &:hover {
-      color: ${isActive ? "#ffffff" : "rgba(25, 123, 189, 1)"};
+      color: #ffffff;
     }
-    ${isActive &&
-      `
-      &:before {
-        background-color: rgba(97, 98, 71, 1);
-        bottom: 0;
-        content: '';
-        top: 0;
-        position: absolute;
-        right: 0;
-        transform: skew(-30deg);
-        width: 100%;
-        z-index: -1;
-      }
-    `};
-    
-  `}
+    &:before {
+      background-color: rgba(97, 98, 71, 1);
+      bottom: 0;
+      content: "";
+      top: 0;
+      position: absolute;
+      right: 0;
+      transform: skew(-30deg);
+      width: 100%;
+      z-index: -1;
+    }
+  }
 `
 
 const LogoWrapper = styled.div`
@@ -79,7 +84,5 @@ const Logo = styled(Link)`
   display: inline-block;
   text-decoration: none;
 `
-
-const isActive = path => window.location.pathname === path
 
 export const Header = styled(HeaderComponent)``
