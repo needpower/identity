@@ -5,7 +5,7 @@ export const Intro = styled.section`
   color: #ffffff;
   margin-bottom: 48px;
   overflow: hidden;
-  padding: 104px 104px 54px;
+  padding: 104px;
   position: relative;
   text-align: center;
   &:before,

@@ -12,7 +12,7 @@ const HeaderComponent = props => (
       <NavLink to="/notes" isActive={isActive("/notes")}>
         Наблюдаем за процессом
       </NavLink>
-      <NavLink to="/store" isActive={isActive("/store")}>
+      <NavLink to="/cupboard" isActive={isActive("/cupboard")}>
         Шкаф
       </NavLink>
       <NavLink to="/contacts" isActive={isActive("/contacts")}>
