@@ -13,5 +13,5 @@ collections:
       - { name: url, label: URL }
       - { name: date, label: "Дата публикации", widget: datetime }
       - { name: title, label: Заголовок }
-      - { name: thumbnail, label: Превью, widget: image }
+      - { name: thumbnail, label: Превью, required: false, widget: image }
       - { name: body, label: Заметки, widget: markdown }
