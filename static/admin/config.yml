@@ -1,17 +1,22 @@
 backend:
-  name: github
-  repo: needpower/identity
+  name: github # Refer to https://www.netlifycms.org/docs/authentication-backends/ for auth backend list and instructions
+  branch: master # Branch to update
+  repo: vagr9k/gatsby-advanced-starter # Repo for pushing new commits. Make sure to replace with your repo!
+
 media_folder: static/assets
 public_folder: assets
+
 collections:
   - name: blog
-    label: Наблюдаем за процессом
-    folder: blog
+    label: "Post"
+    folder: "content"
     create: true
-    identifier_field: name
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}.md"
     fields:
-      - { name: url, label: URL }
-      - { name: date, label: "Дата публикации", widget: datetime }
-      - { name: title, label: Заголовок }
-      - { name: thumbnail, label: Превью, required: false, widget: image }
-      - { name: body, label: Заметки, widget: markdown }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Cover Image", name: "cover", widget: "image" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Body", name: "body", widget: "markdown" }
