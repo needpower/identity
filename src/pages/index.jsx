@@ -1,8 +1,13 @@
 import React from "react"
+import Helmet from "react-helmet"
+
 import Layout from "../components/Layout"
+import config from "../../data/SiteConfig"
 
 export default () => (
   <Layout>
+    <Helmet title={`Главная | ${config.siteTitle}`} />
+
     <section>
       <h1>Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!</h1>
       <div>
