@@ -1,22 +1,30 @@
 backend:
   name: github # Refer to https://www.netlifycms.org/docs/authentication-backends/ for auth backend list and instructions
   branch: master # Branch to update
-  repo: vagr9k/gatsby-advanced-starter # Repo for pushing new commits. Make sure to replace with your repo!
+  repo: needpower/identity # Repo for pushing new commits. Make sure to replace with your repo!
 
 media_folder: static/assets
 public_folder: assets
 
+locale: "ru"
+
 collections:
   - name: blog
-    label: "Post"
+    label: "Публикации"
     folder: "content"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}.md"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Cover Image", name: "cover", widget: "image" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Category", name: "category", widget: "string" }
-      - { label: "Tags", name: "tags", widget: "list" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Заголовок", name: "title", widget: "string" }
+      - { label: "Дата публикации", name: "date", widget: "datetime" }
+      - { label: "Обложка", name: "cover", widget: "image", required: false }
+      - { label: "URL", name: "slug", widget: "string" }
+      - { label: "Категория", name: "category", widget: "string" }
+      - { label: "Тэги", name: "tags", widget: "list", required: false }
+      - {
+          label: "Основная мысль",
+          name: "excerpt",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Тело", name: "body", widget: "markdown" }
