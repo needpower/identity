@@ -9,7 +9,7 @@ const HeaderComponent = props => (
       <Logo to="/">needpower</Logo>
     </LogoWrapper>
     <Nav>
-      <NavLink to="/notes" activeClassName="active">
+      <NavLink to="/notes" partiallyActive activeClassName="active">
         Наблюдаем за процессом
       </NavLink>
       <NavLink to="/cupboard" activeClassName="active">
@@ -51,7 +51,6 @@ const NavLink = styled(Link)`
   &.active {
     border-bottom-color: transparent;
     color: #ffffff;
-    cursor: default;
     margin: 0;
     padding: 0 16px;
     text-shadow: none;
