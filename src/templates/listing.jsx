@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby"
 import React, { Component } from "react"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
-import SEO from "../components/SEO/SEO"
+import SEO from "../components/SEO"
 
 export default class Listing extends Component {
   render() {

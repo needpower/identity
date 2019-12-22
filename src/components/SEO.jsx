@@ -1,46 +1,36 @@
-import React, { Component } from "react";
-import Helmet from "react-helmet";
-import urljoin from "url-join";
-import config from "../../../data/SiteConfig";
+import React, { Component } from "react"
+import Helmet from "react-helmet"
+import urljoin from "url-join"
+import config from "../../data/SiteConfig"
 
 class SEO extends Component {
   render() {
-    const { postNode, postPath, postSEO } = this.props;
-    let title;
-    let description;
-    let image;
-    let postURL;
-    if (postSEO) {
-      const postMeta = postNode.frontmatter;
-      ({ title } = postMeta);
-      description = postMeta.description
-        ? postMeta.description
-        : postNode.excerpt;
-      image = postMeta.cover;
-      postURL = urljoin(config.siteUrl, config.pathPrefix, postPath);
-    } else {
-      title = config.siteTitle;
-      description = config.siteDescription;
-      image = config.siteLogo;
-    }
-
+    const { postNode, postPath, postSEO } = this.props
+    const postMeta = postSEO ? postNode.frontmatter : undefined
+    const title = postSEO ? postMeta.title : config.siteTitle
+    const description = postSEO ? postMeta.excerpt : config.siteDescription
+    const postURL = postSEO
+      ? urljoin(config.siteUrl, config.pathPrefix, postPath)
+      : undefined
+    let image = postSEO ? postMeta.cover || config.siteLogo : config.siteLogo
     if (
       !image.match(
         `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
       )
-    )
-      image = urljoin(config.siteUrl, config.pathPrefix, image);
+    ) {
+      image = urljoin(config.siteUrl, config.pathPrefix, image)
+    }
 
-    const blogURL = urljoin(config.siteUrl, config.pathPrefix);
+    const blogURL = urljoin(config.siteUrl, config.pathPrefix)
     const schemaOrgJSONLD = [
       {
         "@context": "http://schema.org",
         "@type": "WebSite",
         url: blogURL,
         name: title,
-        alternateName: config.siteTitleAlt ? config.siteTitleAlt : ""
-      }
-    ];
+        alternateName: config.siteTitleAlt || "",
+      },
+    ]
     if (postSEO) {
       schemaOrgJSONLD.push(
         {
@@ -53,25 +43,25 @@ class SEO extends Component {
               item: {
                 "@id": postURL,
                 name: title,
-                image
-              }
-            }
-          ]
+                image,
+              },
+            },
+          ],
         },
         {
           "@context": "http://schema.org",
           "@type": "BlogPosting",
           url: blogURL,
           name: title,
-          alternateName: config.siteTitleAlt ? config.siteTitleAlt : "",
+          alternateName: config.siteTitleAlt || "",
           headline: title,
           image: {
             "@type": "ImageObject",
-            url: image
+            url: image,
           },
-          description
+          description,
         }
-      );
+      )
     }
     return (
       <Helmet>
@@ -105,8 +95,8 @@ class SEO extends Component {
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={image} />
       </Helmet>
-    );
+    )
   }
 }
 
-export default SEO;
+export default SEO
