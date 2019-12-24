@@ -1,6 +1,7 @@
 import Typography from "typography"
 import oceanBeachTheme from "typography-theme-ocean-beach"
-oceanBeachTheme.overrideThemeStyles = ({ rythm }, options) => ({
+
+oceanBeachTheme.overrideThemeStyles = () => ({
   a: {
     backgroundImage: "none",
     color: "rgba(97, 98, 71, 1)",
