@@ -173,7 +173,6 @@ module.exports = {
                       cover
                       date
                       category
-                      tags
                     }
                   }
                 }
