@@ -26,12 +26,5 @@ collections:
         }
       - { label: "URL", name: "slug", widget: "string" }
       - { label: "Категория", name: "category", widget: "string" }
-      - {
-          label: "Тэги",
-          name: "tags",
-          widget: "list",
-          default: [],
-          required: false,
-        }
       - { label: "Основная мысль", name: "excerpt", widget: "string" }
       - { label: "Тело", name: "body", widget: "markdown" }
