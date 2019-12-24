@@ -21,7 +21,7 @@ collections:
           label: "Обложка",
           name: "cover",
           widget: "image",
-          default: null,
+          default: "",
           required: false,
         }
       - { label: "URL", name: "slug", widget: "string" }
@@ -30,7 +30,7 @@ collections:
           label: "Тэги",
           name: "tags",
           widget: "list",
-          default: null,
+          default: [],
           required: false,
         }
       - { label: "Основная мысль", name: "excerpt", widget: "string" }
