@@ -2,8 +2,6 @@
 
 const path = require("path")
 const _ = require("lodash")
-const moment = require("moment")
-const siteConfig = require("./data/SiteConfig")
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   // transform url of each node from any_Case to kebab-case
@@ -28,13 +26,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     if (Object.prototype.hasOwnProperty.call(node, "frontmatter")) {
       if (Object.prototype.hasOwnProperty.call(node.frontmatter, "slug"))
         slug = `/${_.kebabCase(node.frontmatter.slug)}`
-      if (Object.prototype.hasOwnProperty.call(node.frontmatter, "date")) {
-        const date = moment(node.frontmatter.date, siteConfig.dateFromFormat)
-        if (!date.isValid) {
-          console.warn(`WARNING: Invalid date.`, node.frontmatter)
-        }
-        createNodeField({ node, name: "date", value: date.toISOString() })
-      }
     }
     createNodeField({ node, name: "slug", value: slug })
   }

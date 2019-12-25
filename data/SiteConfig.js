@@ -12,7 +12,6 @@ const config = {
   // googleAnalyticsID: "UA-47311644-5", // GA tracking ID.
   // disqusShortname: "https-vagr9k-github-io-gatsby-advanced-starter", // Disqus shortname.
   postDefaultCategoryID: "на обдумать", // Default category for posts.
-  dateFromFormat: "YYYY-MM-DD", // Date format used in the frontmatter.
   userEmail: "artemlyubchuk@mail.ru", // Email used for RSS feed's author segment
   // Links to social profiles/projects you want to display in the author segment/navigation bar.
   userLinks: [

@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { graphql, Link } from "gatsby"
 import React, { Component } from "react"
+import { format } from "date-fns"
+import { ru } from "date-fns/locale"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
@@ -27,7 +29,6 @@ export default class Listing extends Component {
         <Articles>
           {data.allMarkdownRemark.edges.map(post => (
             <Article key={post.node.fields.slug}>
-              <ArticleMeta>{post.node.frontmatter.date}</ArticleMeta>
               <header>
                 <ArticleHeader>
                   <Link to={`/notes/${post.node.fields.slug}`}>
@@ -35,7 +36,12 @@ export default class Listing extends Component {
                   </Link>
                 </ArticleHeader>
               </header>
-              <ArticleBrief>{post.node.excerpt}</ArticleBrief>
+              <ArticleMeta>
+                {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {
+                  locale: ru,
+                })}
+              </ArticleMeta>
+              <ArticleBrief>{post.node.frontmatter.excerpt}</ArticleBrief>
             </Article>
           ))}
         </Articles>
@@ -54,28 +60,29 @@ const Article = styled.article`
 `
 const ArticleHeader = styled.h2`
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
 `
 const ArticleMeta = styled.footer`
   color: rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.8rem;
 `
 const ArticleBrief = styled.p``
 
 /* eslint no-undef: "off" */
 export const listingQuery = graphql`
   query ListingQuery {
-    allMarkdownRemark(sort: { fields: [fields___date], order: DESC }) {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           fields {
             slug
-            date
           }
           excerpt
           timeToRead
           frontmatter {
             title
             cover
+            excerpt
             date
           }
         }

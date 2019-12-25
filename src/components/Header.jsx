@@ -3,8 +3,8 @@ import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import { options } from "../utils/typography"
 
-const HeaderComponent = props => (
-  <HeaderTag className={props.className}>
+const HeaderComponent = ({ className }) => (
+  <HeaderTag className={className}>
     <LogoWrapper>
       <Logo to="/">needpower</Logo>
     </LogoWrapper>
@@ -15,7 +15,7 @@ const HeaderComponent = props => (
       <NavLink to="/cupboard" activeClassName="active">
         Шкаф
       </NavLink>
-      <NavLink to="/contacts" activeClassName="active">
+      <NavLink to="/about" activeClassName="active">
         Об авторе
       </NavLink>
     </Nav>
