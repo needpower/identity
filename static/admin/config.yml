@@ -28,3 +28,19 @@ collections:
       - { label: "Категория", name: "category", widget: "string" }
       - { label: "Основная мысль", name: "excerpt", widget: "string" }
       - { label: "Тело", name: "body", widget: "markdown" }
+
+  - name: cupboard
+    label: "Шкаф"
+    folder: "cupboard"
+    create: true
+    slug: "{{slug}}.md"
+    fields:
+      - { label: "Заголовок", name: "title", widget: "string" }
+      - { label: "Источник", name: "origin", widget: "string" }
+      - { label: "О чём там?", name: "association", widget: "text" }
+      - {
+          label: "Категория",
+          name: "category",
+          widget: "list",
+          allow_add: false,
+        }
