@@ -1,17 +1,21 @@
 import styled from "@emotion/styled"
 import { graphql, Link } from "gatsby"
 import React, { Component } from "react"
+import Helmet from "react-helmet"
 import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
+import config from "../../data/SiteConfig"
 
 export default class Listing extends Component {
   render() {
     const { data } = this.props
     return (
       <Layout fullWidth>
+        <Helmet title={`Наблюдаем за процессом | ${config.siteTitle}`} />
+
         <Intro>
           <p>
             Если только херачить не оглядываясь, по методу just... do it!, могу
