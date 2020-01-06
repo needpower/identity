@@ -34,10 +34,20 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
+  const listingPage = path.resolve("./src/templates/listing.jsx")
+  createPage({
+    path: "/notes",
+    component: listingPage,
+    context: {},
+  })
+
   // Get a full list of markdown posts
   const markdownQueryResult = await graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(
+        limit: 5
+        sort: { fields: frontmatter___date, order: DESC }
+      ) {
         edges {
           node {
             fields {
@@ -59,33 +69,21 @@ exports.createPages = async ({ graphql, actions }) => {
     throw markdownQueryResult.errors
   }
 
-  const listingPage = path.resolve("./src/templates/listing.jsx")
-  const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges
-
-  createPage({
-    path: "/notes",
-    component: listingPage,
-    context: {},
-  })
-
   // Post page creating
+  const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges
   const postPage = path.resolve("./src/templates/post.jsx")
-  postsEdges.forEach((edge, index) => {
+  postsEdges.forEach(edge => {
     // Create post pages
-    const nextID = index + 1 < postsEdges.length ? index + 1 : 0
-    const prevID = index - 1 >= 0 ? index - 1 : postsEdges.length - 1
-    const nextEdge = postsEdges[nextID]
-    const prevEdge = postsEdges[prevID]
+    const otherPosts = postsEdges.filter(
+      post => post.node.fields.slug !== edge.node.fields.slug
+    )
 
     createPage({
       path: `/notes${edge.node.fields.slug}`,
       component: postPage,
       context: {
         slug: edge.node.fields.slug,
-        nexttitle: nextEdge.node.frontmatter.title,
-        nextslug: nextEdge.node.fields.slug,
-        prevtitle: prevEdge.node.frontmatter.title,
-        prevslug: prevEdge.node.fields.slug,
+        otherPosts,
       },
     })
   })
