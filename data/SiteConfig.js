@@ -27,12 +27,12 @@ const config = {
     },
     {
       label: "Email",
-      url: "mailto:vagr9k@gmail.com",
+      url: "mailto:artemlyubchuk@mail.ru",
       iconClassName: "fa fa-envelope",
     },
   ],
   copyright:
-    "Артём (needpower). Права не защищал, спиздите пару идей,  хочется.", // Copyright string for the footer of the website and RSS feed.
+    "Артём (needpower). Права не защищал. Спиздите пару идей, если хочется.", // Copyright string for the footer of the website and RSS feed.
   themeColor: "rgba(97,98,71,1)", // Used for setting manifest and progress theme colors.
   backgroundColor: "#e0e0e0", // Used for setting manifest background color.
 }

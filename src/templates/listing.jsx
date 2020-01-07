@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { graphql, Link } from "gatsby"
+import Img from "gatsby-image"
 import React, { Component } from "react"
 import Helmet from "react-helmet"
 import { format } from "date-fns"
@@ -15,7 +16,6 @@ export default class Listing extends Component {
     return (
       <Layout fullWidth>
         <Helmet title={`Наблюдаем за процессом | ${config.siteTitle}`} />
-
         <Intro>
           <p>
             Если только херачить не оглядываясь, по методу just... do it!, могу
@@ -29,25 +29,28 @@ export default class Listing extends Component {
           </p>
         </Intro>
         <SEO />
-
         <Articles>
-          {data.allMarkdownRemark.edges.map(post => (
-            <Article key={post.node.fields.slug}>
-              <header>
-                <ArticleHeader>
-                  <Link to={`/notes/${post.node.fields.slug}`}>
-                    {post.node.frontmatter.title}
-                  </Link>
-                </ArticleHeader>
-              </header>
-              <ArticleMeta>
-                {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {
-                  locale: ru,
-                })}
-              </ArticleMeta>
-              <ArticleBrief>{post.node.frontmatter.excerpt}</ArticleBrief>
-            </Article>
-          ))}
+          {data.allMarkdownRemark.edges.map(post => {
+            const { slug } = post.node.fields
+            const { date: dateISO, excerpt, title } = post.node.frontmatter
+            const coverImage = post.node.frontmatter.cover.childImageSharp.fluid
+            return (
+              <Article key={slug}>
+                <header>
+                  <ArticleHeader>
+                    <Link to={`/notes/${slug}`}>{title}</Link>
+                    {coverImage && <Img fluid={coverImage} />}
+                  </ArticleHeader>
+                </header>
+                <ArticleMeta>
+                  {format(new Date(dateISO), "dd MMMM yyyy", {
+                    locale: ru,
+                  })}
+                </ArticleMeta>
+                <ArticleBrief>{excerpt}</ArticleBrief>
+              </Article>
+            )
+          })}
         </Articles>
       </Layout>
     )
@@ -85,7 +88,13 @@ export const listingQuery = graphql`
           timeToRead
           frontmatter {
             title
-            cover
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 1280) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
             excerpt
             date
           }
