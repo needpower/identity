@@ -3,6 +3,16 @@ import Helmet from "react-helmet"
 import urljoin from "url-join"
 import config from "../../data/SiteConfig"
 
+function getImage(postSEO, postMeta) {
+  if (!postSEO) {
+    return config.siteLogo
+  }
+  if (postMeta.cover) {
+    return postMeta.cover.childImageSharp.src || config.siteLogo
+  }
+  return config.siteLogo
+}
+
 class SEO extends Component {
   render() {
     const { postNode, postPath, postSEO } = this.props
@@ -12,9 +22,7 @@ class SEO extends Component {
     const postURL = postSEO
       ? urljoin(config.siteUrl, config.pathPrefix, postPath)
       : undefined
-    let image = postSEO
-      ? postMeta.cover.childImageSharp.fluid.src || config.siteLogo
-      : config.siteLogo
+    let image = getImage(postSEO)
     if (
       !image.match(
         `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
