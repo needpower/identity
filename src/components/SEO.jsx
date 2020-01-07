@@ -12,7 +12,9 @@ class SEO extends Component {
     const postURL = postSEO
       ? urljoin(config.siteUrl, config.pathPrefix, postPath)
       : undefined
-    let image = postSEO ? postMeta.cover || config.siteLogo : config.siteLogo
+    let image = postSEO
+      ? postMeta.cover.childImageSharp.fluid.src || config.siteLogo
+      : config.siteLogo
     if (
       !image.match(
         `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`

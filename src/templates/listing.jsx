@@ -33,7 +33,9 @@ export default class Listing extends Component {
           {data.allMarkdownRemark.edges.map(post => {
             const { slug } = post.node.fields
             const { date: dateISO, excerpt, title } = post.node.frontmatter
-            const coverImage = post.node.frontmatter.cover.childImageSharp.fluid
+            const coverImage =
+              post.node.frontmatter.cover &&
+              post.node.frontmatter.cover.childImageSharp.fluid
             return (
               <Article key={slug}>
                 <header>
