@@ -8,6 +8,8 @@ public_folder: assets
 
 locale: "ru"
 
+publish_mode: editorial_workflow
+
 collections:
   - name: blog
     label: "Публикации"
