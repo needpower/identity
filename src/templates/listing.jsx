@@ -41,7 +41,6 @@ export default class Listing extends Component {
                 <header>
                   <ArticleHeader>
                     <Link to={`/notes/${slug}`}>{title}</Link>
-                    {coverImage && <Img fluid={coverImage} />}
                   </ArticleHeader>
                 </header>
                 <ArticleMeta>
@@ -49,6 +48,12 @@ export default class Listing extends Component {
                     locale: ru,
                   })}
                 </ArticleMeta>
+                {coverImage && (
+                  <ArticleCoverImage
+                    fluid={coverImage}
+                    objectPosition="center center"
+                  />
+                )}
                 <ArticleBrief>{excerpt}</ArticleBrief>
               </Article>
             )
@@ -75,6 +80,12 @@ const ArticleMeta = styled.footer`
   color: rgba(0, 0, 0, 0.4);
   margin-bottom: 0.8rem;
 `
+const ArticleCoverImage = styled(Img)`
+  border-radius: 0.4rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
+  margin-bottom: 1.6rem;
+`
+
 const ArticleBrief = styled.p``
 
 /* eslint no-undef: "off" */
@@ -92,7 +103,7 @@ export const listingQuery = graphql`
             title
             cover {
               childImageSharp {
-                fluid(maxWidth: 1280) {
+                fluid(maxWidth: 1280, maxHeight: 480) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
