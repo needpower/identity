@@ -22,7 +22,7 @@ class SEO extends Component {
     const postURL = postSEO
       ? urljoin(config.siteUrl, config.pathPrefix, postPath)
       : undefined
-    let image = getImage(postSEO)
+    let image = getImage(postSEO, postMeta)
     if (
       !image.match(
         `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
