@@ -4,7 +4,7 @@ backend:
   repo: needpower/identity # Repo for pushing new commits. Make sure to replace with your repo!
 
 media_folder: "static/assets"
-public_folder: "../static/assets"
+public_folder: "/assets"
 
 locale: "ru"
 

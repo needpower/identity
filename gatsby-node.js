@@ -2,8 +2,12 @@
 
 const path = require("path")
 const _ = require("lodash")
+const { fmImagesToRelative } = require("gatsby-remark-relative-images")
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
+  // Convert any absolute path in markdown frontmatter data
+  // into relative paths if a matching file is found
+  fmImagesToRelative(node)
   // transform url of each node from any_Case to kebab-case
   const { createNodeField } = actions
   let slug
