@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import { graphql, Link } from "gatsby"
-import Img from "gatsby-image"
 import React, { Component } from "react"
 import Helmet from "react-helmet"
 import { format } from "date-fns"
@@ -8,6 +7,7 @@ import { ru } from "date-fns/locale"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
+import NonStretchedImage from "../components/NonStretchedImage"
 import config from "../../data/SiteConfig"
 
 export default class Listing extends Component {
@@ -80,7 +80,7 @@ const ArticleMeta = styled.footer`
   color: rgba(0, 0, 0, 0.4);
   margin-bottom: 0.8rem;
 `
-const ArticleCoverImage = styled(Img)`
+const ArticleCoverImage = styled(NonStretchedImage)`
   border-radius: 0.4rem;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
   margin-bottom: 1.6rem;
@@ -105,6 +105,7 @@ export const listingQuery = graphql`
               childImageSharp {
                 fluid(maxWidth: 1280, maxHeight: 480) {
                   ...GatsbyImageSharpFluid_withWebp
+                  presentationWidth
                 }
               }
             }
