@@ -38,7 +38,7 @@ export default class Listing extends Component {
               <Article key={slug}>
                 <header>
                   <ArticleHeader>
-                    <Link to={`/notes/${slug}`}>{title}</Link>
+                    <Link to={`/watch/notes/${slug}`}>{title}</Link>
                   </ArticleHeader>
                 </header>
                 <ArticleMeta>

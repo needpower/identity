@@ -43,7 +43,7 @@ function OtherPostsSidebar({ posts }) {
       {posts.map(post => (
         <OtherPost key={post.node.fields.slug}>
           <OtherPostTitle>
-            <Link to={`/notes/${post.node.fields.slug}`}>
+            <Link to={`/watch/notes/${post.node.fields.slug}`}>
               {post.node.frontmatter.title}
             </Link>
             <OtherPostDate>
