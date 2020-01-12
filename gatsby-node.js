@@ -40,7 +40,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const listingPage = path.resolve("./src/templates/listing.jsx")
   createPage({
-    path: "/notes",
+    path: "/watch/notes",
     component: listingPage,
     context: {},
   })
@@ -83,7 +83,7 @@ exports.createPages = async ({ graphql, actions }) => {
     )
 
     createPage({
-      path: `/notes${edge.node.fields.slug}`,
+      path: `/watch/notes${edge.node.fields.slug}`,
       component: postPage,
       context: {
         slug: edge.node.fields.slug,

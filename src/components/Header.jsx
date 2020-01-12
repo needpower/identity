@@ -9,7 +9,7 @@ const HeaderComponent = ({ className }) => (
       <Logo to="/">needpower</Logo>
     </LogoWrapper>
     <Nav>
-      <NavLink to="/notes" partiallyActive activeClassName="active">
+      <NavLink to="/watch" partiallyActive activeClassName="active">
         Наблюдаем за процессом
       </NavLink>
       <NavLink to="/cupboard" activeClassName="active">
