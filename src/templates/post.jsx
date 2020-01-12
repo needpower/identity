@@ -5,8 +5,7 @@ import styled from "@emotion/styled"
 import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 import Layout from "../components/Layout"
-// import Disqus from "../components/Disqus/Disqus"
-import SocialLinks from "../components/SocialLinks/SocialLinks"
+import NonStretchedImage from "../components/NonStretchedImage"
 import SEO from "../components/SEO"
 import config from "../../data/SiteConfig"
 
@@ -16,6 +15,7 @@ export default class PostTemplate extends React.Component {
     const { slug, otherPosts } = pageContext
     const postNode = data.markdownRemark
     const post = postNode.frontmatter
+    const cover = post.cover && post.cover.childImageSharp.fluid
     return (
       <Layout leftColumn={<OtherPostsSidebar posts={otherPosts} />}>
         <Helmet>
@@ -24,9 +24,12 @@ export default class PostTemplate extends React.Component {
         <SEO postPath={slug} postNode={postNode} postSEO />
         <PostContent>
           <PostTitle>{post.title}</PostTitle>
+          {cover && (
+            <PostCover>
+              <PostCoverImage fluid={cover} objectPosition="center center" />
+            </PostCover>
+          )}
           <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
-          <SocialLinks postPath={slug} postNode={postNode} />
-          {/* <Disqus postNode={postNode} /> */}
         </PostContent>
       </Layout>
     )
@@ -77,6 +80,12 @@ const PostContent = styled.section`
 const PostTitle = styled.h1`
   margin-top: 0;
 `
+const PostCover = styled.div``
+const PostCoverImage = styled(NonStretchedImage)`
+  border-radius: 0.4rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
+  margin-bottom: 1.6rem;
+`
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
@@ -90,6 +99,7 @@ export const pageQuery = graphql`
           childImageSharp {
             fluid(maxWidth: 860) {
               ...GatsbyImageSharpFluid_withWebp
+              presentationWidth
             }
           }
         }

@@ -7,7 +7,6 @@ import { ru } from "date-fns/locale"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
-import NonStretchedImage from "../components/NonStretchedImage"
 import config from "../../data/SiteConfig"
 
 export default class Listing extends Component {
@@ -33,9 +32,6 @@ export default class Listing extends Component {
           {data.allMarkdownRemark.edges.map(post => {
             const { slug } = post.node.fields
             const { date: dateISO, excerpt, title } = post.node.frontmatter
-            const coverImage =
-              post.node.frontmatter.cover &&
-              post.node.frontmatter.cover.childImageSharp.fluid
             return (
               <Article key={slug}>
                 <header>
@@ -48,12 +44,6 @@ export default class Listing extends Component {
                     locale: ru,
                   })}
                 </ArticleMeta>
-                {coverImage && (
-                  <ArticleCoverImage
-                    fluid={coverImage}
-                    objectPosition="center center"
-                  />
-                )}
                 <ArticleBrief>{excerpt}</ArticleBrief>
               </Article>
             )
@@ -80,11 +70,6 @@ const ArticleMeta = styled.footer`
   color: rgba(0, 0, 0, 0.4);
   margin-bottom: 0.8rem;
 `
-const ArticleCoverImage = styled(NonStretchedImage)`
-  border-radius: 0.4rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
-  margin-bottom: 1.6rem;
-`
 
 const ArticleBrief = styled.p``
 
@@ -101,14 +86,6 @@ export const listingQuery = graphql`
           timeToRead
           frontmatter {
             title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 1280, maxHeight: 480) {
-                  ...GatsbyImageSharpFluid_withWebp
-                  presentationWidth
-                }
-              }
-            }
             excerpt
             date
           }
