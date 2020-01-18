@@ -2,6 +2,7 @@ import React from "react"
 import Helmet from "react-helmet"
 import styled from "@emotion/styled"
 import Layout from "../components/Layout"
+import UserLinks from "../components/UserLinks"
 import config from "../../data/SiteConfig"
 
 export default () => {
@@ -15,15 +16,21 @@ export default () => {
         <IntroText>
           <p>Привет, я&nbsp;Артём.</p>
           <p>
-            Задача этого сайта&nbsp;&mdash; оставлять слепок изменений отношения
+            На этом сайте буду оставлять слепок изменений отношения
             к&nbsp;волнующим меня вещам и&nbsp;идеям.
           </p>
-          <p>Ещё учусь задавать вопросы? И&nbsp;отвечать на&nbsp;них.</p>
+          <p>
+            Возможно <nobr>что-то</nobr> найдёшь про себя, возможно{" "}
+            <nobr>что-то</nobr> возмутит, порадует, запутает или заставить собой
+            гордиться.
+          </p>
+          <p>Ещё учусь задавать вопросы? И&nbsp;отвечать.</p>
           <p>Закидываю описание проектов, в&nbsp;которых принимал участие.</p>
           <p>
             Учусь насалаждаться процессом. В&nbsp;жопу тревожную погоню
             за&nbsp;успехом, ура!
           </p>
+          <UserLinks />
         </IntroText>
       </ProfileIntro>
     </Layout>

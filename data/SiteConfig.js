@@ -16,17 +16,13 @@ const config = {
   // Links to social profiles/projects you want to display in the author segment/navigation bar.
   userLinks: [
     {
-      label: "GitHub",
-      url: "https://github.com/needpower",
-      iconClassName: "fa fa-github",
-    },
-    {
       label: "VK",
       url: "https://vk.com/id91858750",
       iconClassName: "fa fa-vk",
     },
     {
-      label: "Email",
+      label: "Email:",
+      description: "artemlyubchuk@mail.ru (лучше сюда, просматриваю регулярно)",
       url: "mailto:artemlyubchuk@mail.ru",
       iconClassName: "fa fa-envelope",
     },
