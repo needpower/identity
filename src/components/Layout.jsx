@@ -1,12 +1,13 @@
 import React from "react"
 import { Global, css } from "@emotion/core"
 import styled from "@emotion/styled"
+import Footer from "./Footer"
 import Header from "./Header"
 
 const Layout = props => {
   const { fullWidth, leftColumn, children } = props
   return (
-    <>
+    <LayoutFlex>
       <Global styles={globalStyles} />
       <Header />
       <ContentWrapper fullWidth={fullWidth}>
@@ -15,9 +16,15 @@ const Layout = props => {
           {children}
         </Content>
       </ContentWrapper>
-    </>
+      <LayoutFooter />
+    </LayoutFlex>
   )
 }
+
+const LayoutFlex = styled.div`
+  min-height: 100vh;
+  position: relative;
+`
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -33,6 +40,12 @@ const Sidebar = styled.aside`
 
 const Content = styled.main`
   width: ${({ hasSidebar }) => (hasSidebar ? "75%" : "100%")};
+`
+
+const LayoutFooter = styled(Footer)`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 `
 
 const globalStyles = css`

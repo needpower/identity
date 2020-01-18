@@ -59,7 +59,7 @@ export default class Listing extends Component {
 const Articles = styled.section`
   margin: 0 auto;
   max-width: 1280px;
-  padding: 0 16px;
+  padding: 0 16px 24px;
 `
 const Article = styled.article`
   margin-bottom: 4rem;

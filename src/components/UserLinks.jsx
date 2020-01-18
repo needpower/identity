@@ -6,7 +6,7 @@ const UserLinks = () => (
   <ContactsList>
     <h3>Как со мной связаться:</h3>
     {config.userLinks.map(link => (
-      <ContactsListItem>
+      <ContactsListItem key={link.url}>
         <a href={link.url}>{link.label}</a>
         &nbsp;
         {link.description}
