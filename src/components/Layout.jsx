@@ -39,6 +39,9 @@ const globalStyles = css`
   * {
     box-sizing: border-box;
   }
+  p {
+    margin-bottom: 1rem;
+  }
 `
 
 export default Layout

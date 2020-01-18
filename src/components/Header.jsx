@@ -15,9 +15,6 @@ const HeaderComponent = ({ className }) => (
       <NavLink to="/cupboard" activeClassName="active">
         Шкаф
       </NavLink>
-      <NavLink to="/about" activeClassName="active">
-        Об авторе
-      </NavLink>
     </Nav>
   </HeaderTag>
 )
