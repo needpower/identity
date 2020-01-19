@@ -78,7 +78,10 @@ const ArticleBrief = styled.p``
 /* eslint no-undef: "off" */
 export const listingQuery = graphql`
   query ListingQuery {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { fileAbsolutePath: { regex: "/content/.*.md$/" } }
+    ) {
       edges {
         node {
           fields {

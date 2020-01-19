@@ -38,10 +38,15 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const listingPage = path.resolve("./src/templates/listing.jsx")
   createPage({
     path: "/watch/notes",
-    component: listingPage,
+    component: path.resolve("./src/templates/listing.jsx"),
+    context: {},
+  })
+
+  createPage({
+    path: "/cupboard",
+    component: path.resolve("./src/templates/cupboard.jsx"),
     context: {},
   })
 
@@ -75,7 +80,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Post page creating
   const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges
-  const postPage = path.resolve("./src/templates/post.jsx")
   postsEdges.forEach(edge => {
     // Create post pages
     const otherPosts = postsEdges.filter(
@@ -84,7 +88,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: `/watch/notes${edge.node.fields.slug}`,
-      component: postPage,
+      component: path.resolve("./src/templates/post.jsx"),
       context: {
         slug: edge.node.fields.slug,
         otherPosts,

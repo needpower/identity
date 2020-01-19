@@ -27,7 +27,8 @@ const config = {
       iconClassName: "fa fa-envelope",
     },
   ],
-  copyright: "Артём (needpower). Права не защищал. Спиздите, если хочется.", // Copyright string for the footer of the website and RSS feed.
+  copyright:
+    "Артём Любчук (needpower). Права не защищал. Спиздите, если хочется.", // Copyright string for the footer of the website and RSS feed.
   themeColor: "rgba(97,98,71,1)", // Used for setting manifest and progress theme colors.
   backgroundColor: "#e0e0e0", // Used for setting manifest background color.
 }
