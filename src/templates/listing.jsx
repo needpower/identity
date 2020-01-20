@@ -14,9 +14,7 @@ export default class Listing extends Component {
     const { data } = this.props
     return (
       <Layout fullWidth>
-        <Helmet
-          title={`Говорить &mdash; не мешки ворочать | ${config.siteTitle}`}
-        />
+        <Helmet title={`Говорить - не мешки ворочать | ${config.siteTitle}`} />
         <Intro>
           <p>
             Если только херачить не оглядываясь, по методу just... do it!, могу

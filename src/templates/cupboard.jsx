@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Helmet from "react-helmet"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import styled from "@emotion/styled"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
@@ -9,7 +9,11 @@ import config from "../../data/SiteConfig"
 
 export default class Cupboard extends Component {
   render() {
-    const cupboard = this.props.data.allMarkdownRemark.edges
+    const {
+      data: {
+        allMarkdownRemark: { edges: cupboard },
+      },
+    } = this.props
     return (
       <Layout fullWidth>
         <Helmet title={`Шкаф | ${config.siteTitle}`} />
@@ -28,9 +32,7 @@ export default class Cupboard extends Component {
             return (
               <CupboardReference key={origin}>
                 <CupboardHeader>
-                  <a href={origin} target="_blank" rel="noopener noreferrer">
-                    {title}
-                  </a>
+                  <a href={origin}>{title}</a>
                 </CupboardHeader>
                 <CupboardBrief>{association}</CupboardBrief>
               </CupboardReference>
