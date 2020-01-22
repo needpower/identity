@@ -14,7 +14,10 @@ export default class Listing extends Component {
     const { data } = this.props
     return (
       <Layout fullWidth>
-        <Helmet title={`Говорить - не мешки ворочать | ${config.siteTitle}`} />
+        <Helmet
+          title={`Говорить -
+         не мешки ворочать | ${config.siteTitle}`}
+        />
         <Intro>
           <p>
             Если только херачить не оглядываясь, по методу just... do it!, могу
@@ -39,12 +42,12 @@ export default class Listing extends Component {
                     <Link to={`/watch/notes/${slug}`}>{title}</Link>
                   </ArticleHeader>
                 </header>
+                <ArticleBrief>{excerpt}</ArticleBrief>
                 <ArticleMeta>
                   {format(new Date(dateISO), "dd MMMM yyyy", {
                     locale: ru,
                   })}
                 </ArticleMeta>
-                <ArticleBrief>{excerpt}</ArticleBrief>
               </Article>
             )
           })}
@@ -60,7 +63,10 @@ const Articles = styled.section`
   padding: 0 16px 24px;
 `
 const Article = styled.article`
-  margin-bottom: 4rem;
+  margin-bottom: 2.4rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 const ArticleHeader = styled.h2`
   margin-top: 0;
@@ -68,10 +74,12 @@ const ArticleHeader = styled.h2`
 `
 const ArticleMeta = styled.footer`
   color: rgba(0, 0, 0, 0.4);
-  margin-bottom: 0.8rem;
+  font-size: 0.8rem;
 `
 
-const ArticleBrief = styled.p``
+const ArticleBrief = styled.p`
+  margin-bottom: 0.4rem;
+`
 
 /* eslint no-undef: "off" */
 export const listingQuery = graphql`

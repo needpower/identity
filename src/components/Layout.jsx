@@ -16,22 +16,25 @@ const Layout = props => {
           {children}
         </Content>
       </ContentWrapper>
-      <LayoutFooter />
+      <Footer />
     </LayoutFlex>
   )
 }
 
 const LayoutFlex = styled.div`
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  position: relative;
 `
 
 const ContentWrapper = styled.div`
   display: flex;
+  flex: 1 0 auto;
   flex-wrap: nowrap;
   margin: 48px auto 0;
   max-width: ${({ fullWidth }) => (fullWidth ? "100%" : "1280px")};
   padding: ${({ fullWidth }) => (fullWidth ? "0" : "0 16px")};
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "1280px")};
 `
 
 const Sidebar = styled.aside`
@@ -40,12 +43,6 @@ const Sidebar = styled.aside`
 
 const Content = styled.main`
   width: ${({ hasSidebar }) => (hasSidebar ? "75%" : "100%")};
-`
-
-const LayoutFooter = styled(Footer)`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 `
 
 const globalStyles = css`

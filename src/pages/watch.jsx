@@ -69,6 +69,7 @@ export default WatchProcess
 const CategoriesContainer = styled.div`
   align-items: center;
   display: flex;
+  flex-direction: row;
   justify-content: center;
 `
 
