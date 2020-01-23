@@ -9,8 +9,11 @@ const HeaderComponent = ({ className }) => (
       <Logo to="/">needpower</Logo>
     </LogoWrapper>
     <Nav>
-      <NavLink to="/watch" partiallyActive activeClassName="active">
-        Наблюдаем за процессом
+      <NavLink to="/notes" partiallyActive activeClassName="active">
+        Говорить
+      </NavLink>
+      <NavLink to="/projects" partiallyActive activeClassName="active">
+        Мешки ворочать
       </NavLink>
       <NavLink to="/cupboard" activeClassName="active">
         Шкаф

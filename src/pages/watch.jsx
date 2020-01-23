@@ -39,7 +39,7 @@ const WatchProcess = () => {
           <CategoryImageWrapper>
             <CategoryImage fluid={talkImage.node.childImageSharp.fluid} />
           </CategoryImageWrapper>
-          <Category to="/watch/notes">
+          <Category to="/notes">
             <CategoryText>
               <CategoryTitle>Говорить</CategoryTitle>
               <div>Поговорим обо всём, что касается, интересует и волнует</div>
@@ -52,7 +52,7 @@ const WatchProcess = () => {
           <CategoryImageWrapper>
             <CategoryImage fluid={makeImage.node.childImageSharp.fluid} />
           </CategoryImageWrapper>
-          <Category to="/watch/portfolio">
+          <Category to="/projects">
             <CategoryText>
               <CategoryTitle>Мешки ворочать</CategoryTitle>
               <div>Сборник проектов, в которых принимал участие</div>
