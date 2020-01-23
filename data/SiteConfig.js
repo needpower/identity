@@ -14,7 +14,7 @@ const config = {
   postDefaultCategoryID: "на обдумать", // Default category for posts.
   userEmail: "artemlyubchuk@mail.ru", // Email used for RSS feed's author segment
   copyright:
-    "Артём Любчук (needpower). Права не защищал. Спиздите, если хочется.", // Copyright string for the footer of the website and RSS feed.
+    "Артём Любчук (needpower). Права не защищал. Берите, если хочется.", // Copyright string for the footer of the website and RSS feed.
   themeColor: "rgba(97,98,71,1)", // Used for setting manifest and progress theme colors.
   backgroundColor: "#e0e0e0", // Used for setting manifest background color.
 }
