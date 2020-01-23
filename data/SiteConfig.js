@@ -13,20 +13,6 @@ const config = {
   // disqusShortname: "https-vagr9k-github-io-gatsby-advanced-starter", // Disqus shortname.
   postDefaultCategoryID: "на обдумать", // Default category for posts.
   userEmail: "artemlyubchuk@mail.ru", // Email used for RSS feed's author segment
-  // Links to social profiles/projects you want to display in the author segment/navigation bar.
-  userLinks: [
-    {
-      label: "VK",
-      url: "https://vk.com/id91858750",
-      iconClassName: "fa fa-vk",
-    },
-    {
-      label: "Email:",
-      description: "artemlyubchuk@mail.ru (лучше сюда, просматриваю регулярно)",
-      url: "mailto:artemlyubchuk@mail.ru",
-      iconClassName: "fa fa-envelope",
-    },
-  ],
   copyright:
     "Артём Любчук (needpower). Права не защищал. Спиздите, если хочется.", // Copyright string for the footer of the website and RSS feed.
   themeColor: "rgba(97,98,71,1)", // Used for setting manifest and progress theme colors.

@@ -1,17 +1,21 @@
 import React from "react"
 import styled from "@emotion/styled"
-import config from "../../data/SiteConfig"
 
 const UserLinks = () => (
   <ContactsList>
     <h3>Как со мной связаться:</h3>
-    {config.userLinks.map(link => (
-      <ContactsListItem key={link.url}>
-        <a href={link.url}>{link.label}</a>
-        &nbsp;
-        {link.description}
-      </ContactsListItem>
-    ))}
+    <ContactsListItem>
+      <a href="https://vk.com/id91858750">VKontakte</a>
+    </ContactsListItem>
+    <ContactsListItem>
+      <a href="mailto:artemlyubchuk@mail.ru">Email</a>
+      &nbsp;artemlyubchuk@mail.ru (лучше сюда, просматриваю регулярно)
+    </ContactsListItem>
+    <ContactsListItem>
+      <a href="https://www.linkedin.com/in/artem-lyubchuk-88185414a/">
+        LinkedIn
+      </a>
+    </ContactsListItem>
   </ContactsList>
 )
 
