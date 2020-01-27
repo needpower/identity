@@ -57,7 +57,9 @@ const CupboardList = styled.section`
 const CupboardReference = styled.article`
   margin-bottom: 4rem;
 `
-const CupboardReferecneLink = styled.a``
+const CupboardReferecneLink = styled.a`
+  cursor: pointer;
+`
 const CupboardReferecneTitle = styled.span`
   padding-right: 0.5rem;
 `
