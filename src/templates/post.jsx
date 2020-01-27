@@ -40,11 +40,50 @@ export default class PostTemplate extends React.Component {
             )}
             <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
           </PostContent>
+          <OtherPostsSidebar posts={otherPosts} />
         </PostFlexContainer>
       </Layout>
     )
   }
 }
+
+function OtherPostsSidebar({ posts }) {
+  return (
+    <OtherPostsSection>
+      <OtherPostsSectionHeader>Свежак</OtherPostsSectionHeader>
+      {posts.map(post => (
+        <OtherPost key={post.node.fields.slug}>
+          <OtherPostTitle>
+            <Link to={`/notes/${post.node.fields.slug}`}>
+              {post.node.frontmatter.title}
+            </Link>
+            <OtherPostDate>
+              {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {
+                locale: ru,
+              })}
+            </OtherPostDate>
+          </OtherPostTitle>
+        </OtherPost>
+      ))}
+    </OtherPostsSection>
+  )
+}
+
+const OtherPostsSection = styled.section``
+
+const OtherPostsSectionHeader = styled.h4`
+  margin-top: 0;
+`
+
+const OtherPost = styled.div`
+  margin-bottom: 1rem;
+`
+
+const OtherPostTitle = styled.div``
+const OtherPostDate = styled.div`
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.8rem;
+`
 
 const PostFlexContainer = styled.div`
   display: flex;
@@ -70,7 +109,8 @@ const BackNote = styled.span`
 
 const PostContent = styled.section`
   padding-left: 16px;
-  width: 90%;
+  padding-right: 16px;
+  width: 70%;
 `
 const PostTitle = styled.h1`
   margin-top: 0;

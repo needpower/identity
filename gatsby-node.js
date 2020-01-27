@@ -54,8 +54,9 @@ exports.createPages = async ({ graphql, actions }) => {
   const markdownQueryResult = await graphql(`
     {
       allMarkdownRemark(
+        sort: { fields: [frontmatter___date], order: DESC }
+        filter: { fileAbsolutePath: { regex: "/content/.*.md$/" } }
         limit: 5
-        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
@@ -81,17 +82,12 @@ exports.createPages = async ({ graphql, actions }) => {
   // Post page creating
   const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges
   postsEdges.forEach(edge => {
-    // Create post pages
-    const otherPosts = postsEdges.filter(
-      post => post.node.fields.slug !== edge.node.fields.slug
-    )
-
     createPage({
       path: `/notes${edge.node.fields.slug}`,
       component: path.resolve("./src/templates/post.jsx"),
       context: {
         slug: edge.node.fields.slug,
-        otherPosts,
+        otherPosts: postsEdges,
       },
     })
   })
