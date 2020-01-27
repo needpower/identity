@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import Helmet from "react-helmet"
 import { graphql } from "gatsby"
 import styled from "@emotion/styled"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
@@ -32,7 +34,10 @@ export default class Cupboard extends Component {
             return (
               <CupboardReference key={origin}>
                 <CupboardHeader>
-                  <a href={origin}>{title}</a>
+                  <CupboardReferecneLink>
+                    <CupboardReferecneTitle>{title}</CupboardReferecneTitle>
+                    <FontAwesomeIcon icon={faExternalLinkAlt} size="xs" />
+                  </CupboardReferecneLink>
                 </CupboardHeader>
                 <CupboardBrief>{association}</CupboardBrief>
               </CupboardReference>
@@ -51,6 +56,10 @@ const CupboardList = styled.section`
 `
 const CupboardReference = styled.article`
   margin-bottom: 4rem;
+`
+const CupboardReferecneLink = styled.a``
+const CupboardReferecneTitle = styled.span`
+  padding-right: 0.5rem;
 `
 const CupboardHeader = styled.h2`
   margin-top: 0;
