@@ -2,6 +2,8 @@ import React from "react"
 import Helmet from "react-helmet"
 import { graphql, Link } from "gatsby"
 import styled from "@emotion/styled"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 import Layout from "../components/Layout"
@@ -17,74 +19,68 @@ export default class PostTemplate extends React.Component {
     const post = postNode.frontmatter
     const cover = post.cover && post.cover.childImageSharp.fluid
     return (
-      <Layout leftColumn={<OtherPostsSidebar posts={otherPosts} />}>
+      <Layout>
         <Helmet>
           <title>{`${post.title} | ${config.siteTitle}`}</title>
         </Helmet>
         <SEO postPath={slug} postNode={postNode} postSEO />
-        <PostContent>
-          <PostTitle>{post.title}</PostTitle>
-          {cover && (
-            <PostCover>
-              <PostCoverImage fluid={cover} objectPosition="center center" />
-            </PostCover>
-          )}
-          <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
-        </PostContent>
+        <PostFlexContainer>
+          <PostBack>
+            <BackLink to="/notes">
+              <BackNote>Ко всем постам</BackNote>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </BackLink>
+          </PostBack>
+          <PostContent>
+            <PostTitle>{post.title}</PostTitle>
+            {cover && (
+              <PostCover>
+                <PostCoverImage fluid={cover} objectPosition="center center" />
+              </PostCover>
+            )}
+            <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
+          </PostContent>
+        </PostFlexContainer>
       </Layout>
     )
   }
 }
 
-function OtherPostsSidebar({ posts }) {
-  return (
-    <OtherPostsSection>
-      <OtherPostsSectionHeader>Свежак</OtherPostsSectionHeader>
-      {posts.map(post => (
-        <OtherPost key={post.node.fields.slug}>
-          <OtherPostTitle>
-            <Link to={`/watch/notes/${post.node.fields.slug}`}>
-              {post.node.frontmatter.title}
-            </Link>
-            <OtherPostDate>
-              {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {
-                locale: ru,
-              })}
-            </OtherPostDate>
-          </OtherPostTitle>
-        </OtherPost>
-      ))}
-    </OtherPostsSection>
-  )
-}
-
-const OtherPostsSection = styled.section``
-
-const OtherPostsSectionHeader = styled.h4`
-  margin-top: 0;
+const PostFlexContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 
-const OtherPost = styled.div`
-  margin-bottom: 1rem;
+const PostBack = styled.div`
+  font-size: 1.6rem;
+  width: 10%;
 `
 
-const OtherPostTitle = styled.div``
-const OtherPostDate = styled.div`
-  color: rgba(0, 0, 0, 0.4);
+const BackLink = styled(Link)`
+  border-bottom: none;
+  display: inline-block;
+  line-height: 1.2rem;
+`
+
+const BackNote = styled.span`
+  display: inline-block;
   font-size: 0.8rem;
+  width: 100%;
 `
 
 const PostContent = styled.section`
   padding-left: 16px;
+  width: 90%;
 `
 const PostTitle = styled.h1`
   margin-top: 0;
+  text-align: center;
 `
 const PostCover = styled.div``
 const PostCoverImage = styled(NonStretchedImage)`
   border-radius: 0.4rem;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
-  margin-bottom: 1.6rem;
+  margin: 0 auto 1.6rem;
 `
 
 export const pageQuery = graphql`
