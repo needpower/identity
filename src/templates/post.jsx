@@ -10,6 +10,7 @@ import Layout from "../components/Layout"
 import NonStretchedImage from "../components/NonStretchedImage"
 import SEO from "../components/SEO"
 import config from "../../data/SiteConfig"
+import { options } from "../utils/typography"
 
 export default class PostTemplate extends React.Component {
   render() {
@@ -54,9 +55,12 @@ function OtherPostsSidebar({ posts }) {
       {posts.map(post => (
         <OtherPost key={post.node.fields.slug}>
           <OtherPostTitle>
-            <Link to={`/notes/${post.node.fields.slug}`}>
+            <OtherPostLink
+              to={`/notes/${post.node.fields.slug}`}
+              activeClassName="active"
+            >
               {post.node.frontmatter.title}
-            </Link>
+            </OtherPostLink>
             <OtherPostDate>
               {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {
                 locale: ru,
@@ -69,7 +73,10 @@ function OtherPostsSidebar({ posts }) {
   )
 }
 
-const OtherPostsSection = styled.section``
+const OtherPostsSection = styled.section`
+  padding-left: 16px;
+  width: 25%;
+`
 
 const OtherPostsSectionHeader = styled.h4`
   margin-top: 0;
@@ -80,6 +87,14 @@ const OtherPost = styled.div`
 `
 
 const OtherPostTitle = styled.div``
+const OtherPostLink = styled(Link)`
+  font-family: ${options.headerFontFamily.join()};
+  &.active {
+    border-bottom-color: transparent;
+    color: hsla(0, 0%, 0%, 0.9);
+    cursor: default;
+  }
+`
 const OtherPostDate = styled.div`
   color: rgba(0, 0, 0, 0.4);
   font-size: 0.8rem;
@@ -110,7 +125,7 @@ const BackNote = styled.span`
 const PostContent = styled.section`
   padding-left: 16px;
   padding-right: 16px;
-  width: 70%;
+  width: 65%;
 `
 const PostTitle = styled.h1`
   margin-top: 0;
