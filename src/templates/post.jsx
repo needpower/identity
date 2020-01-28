@@ -8,6 +8,7 @@ import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 import Layout from "../components/Layout"
 import NonStretchedImage from "../components/NonStretchedImage"
+import SocialLinks from "../components/SocialLinks"
 import SEO from "../components/SEO"
 import config from "../../data/SiteConfig"
 import { options } from "../utils/typography"
@@ -43,6 +44,7 @@ export default class PostTemplate extends React.Component {
           </PostContent>
           <OtherPostsSidebar posts={otherPosts} />
         </PostFlexContainer>
+        <SocialLinks postNode={postNode} postPath={`/notes${slug}`} />
       </Layout>
     )
   }
@@ -103,6 +105,7 @@ const OtherPostDate = styled.div`
 const PostFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 16px;
 `
 
 const PostBack = styled.div`

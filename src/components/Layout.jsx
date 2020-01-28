@@ -52,6 +52,9 @@ const globalStyles = css`
   p {
     margin-bottom: 1rem;
   }
+  a {
+    text-shadow: none;
+  }
 `
 
 export default Layout
