@@ -9,8 +9,7 @@ const config = {
     "Рассказываю о технологиях, волнениях, опытах и результатах.", // Website description used for RSS feeds/meta description tag.
   siteRss: "/rss.xml", // Path to the RSS file.
   siteFBAppID: "1825356251115265", // FB Application ID for using app insights
-  // googleAnalyticsID: "UA-47311644-5", // GA tracking ID.
-  // disqusShortname: "https-vagr9k-github-io-gatsby-advanced-starter", // Disqus shortname.
+  googleAnalyticsID: "UA-157386560-1", // GA tracking ID.
   postDefaultCategoryID: "на обдумать", // Default category for posts.
   userEmail: "artemlyubchuk@mail.ru", // Email used for RSS feed's author segment
   copyright:
