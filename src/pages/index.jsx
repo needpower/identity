@@ -1,14 +1,14 @@
 import React from "react"
-import Helmet from "react-helmet"
 import styled from "@emotion/styled"
 import Layout from "../components/Layout"
+import SEO from "../components/SEO"
 import UserLinks from "../components/UserLinks"
-import config from "../../data/SiteConfig"
+import { siteDescription } from "../../data/SiteConfig"
 
 export default () => {
   return (
     <Layout>
-      <Helmet title={`Главная | ${config.siteTitle}`} />
+      <SEO title="Начало" description={siteDescription} />
       <ProfileIntro>
         <ImageWrapper>
           <ProfileImage src="/assets/profile.jpg" alt="Фото на паспорт" />

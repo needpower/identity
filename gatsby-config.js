@@ -5,6 +5,11 @@ module.exports = {
   pathPrefix: config.pathPrefix === "" ? "/" : config.pathPrefix,
   siteMetadata: {
     siteUrl: urljoin(config.siteUrl, config.pathPrefix),
+    title: config.siteTitleShort,
+    titleTemplate: "%s | Хроника Артёма Любчука",
+    description: config.siteDescription,
+    url: config.siteUrl,
+    image: config.siteLogo,
     rssMetadata: {
       site_url: urljoin(config.siteUrl, config.pathPrefix),
       feed_url: urljoin(config.siteUrl, config.pathPrefix, config.siteRss),

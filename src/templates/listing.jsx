@@ -1,22 +1,21 @@
 import styled from "@emotion/styled"
 import { graphql, Link } from "gatsby"
 import React, { Component } from "react"
-import Helmet from "react-helmet"
 import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
-import config from "../../data/SiteConfig"
 
 export default class Listing extends Component {
   render() {
     const { data } = this.props
     return (
       <Layout fullWidth>
-        <Helmet
-          title={`Говорить -
-         не мешки ворочать | ${config.siteTitle}`}
+        <SEO
+          title="Говорить - не мешки ворочать"
+          description="Если только херачить не оглядываясь, по методу just... do it!, могу
+            забыть, зачем вообще начинал. Добро пожаловать в хронику, где показываю, что узнал и что делаю."
         />
         <Intro>
           <p>
@@ -30,7 +29,6 @@ export default class Listing extends Component {
             Добро пожаловать в хронику, где показываю, что узнал и что делаю.
           </p>
         </Intro>
-        <SEO />
         <Articles>
           {data.allMarkdownRemark.edges.map(post => {
             const { slug } = post.node.fields
@@ -57,7 +55,7 @@ export default class Listing extends Component {
   }
 }
 
-const Articles = styled.section`
+const Articles = styled.div`
   margin: 0 auto;
   max-width: 1280px;
   padding: 0 16px 24px;

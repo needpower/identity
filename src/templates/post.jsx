@@ -1,5 +1,4 @@
 import React from "react"
-import Helmet from "react-helmet"
 import { graphql, Link } from "gatsby"
 import styled from "@emotion/styled"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -10,7 +9,6 @@ import Layout from "../components/Layout"
 import NonStretchedImage from "../components/NonStretchedImage"
 import SocialLinks from "../components/SocialLinks"
 import SEO from "../components/SEO"
-import config from "../../data/SiteConfig"
 import { options } from "../utils/typography"
 
 export default class PostTemplate extends React.Component {
@@ -22,10 +20,13 @@ export default class PostTemplate extends React.Component {
     const cover = post.cover && post.cover.childImageSharp.fluid
     return (
       <Layout>
-        <Helmet>
-          <title>{`${post.title} | ${config.siteTitle}`}</title>
-        </Helmet>
-        <SEO postPath={slug} postNode={postNode} postSEO />
+        <SEO
+          title={post.title}
+          description={post.excerpt}
+          image={cover.src}
+          pathname={`/notes${slug}`}
+          isArticle
+        />
         <PostFlexContainer>
           <PostBack>
             <BackLink to="/notes">
@@ -40,11 +41,11 @@ export default class PostTemplate extends React.Component {
                 <PostCoverImage fluid={cover} objectPosition="center center" />
               </PostCover>
             )}
-            <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
+            <section dangerouslySetInnerHTML={{ __html: postNode.html }} />
+            <SocialLinks postNode={postNode} postPath={`/notes${slug}`} />
           </PostContent>
           <OtherPostsSidebar posts={otherPosts} />
         </PostFlexContainer>
-        <SocialLinks postNode={postNode} postPath={`/notes${slug}`} />
       </Layout>
     )
   }
@@ -75,7 +76,7 @@ function OtherPostsSidebar({ posts }) {
   )
 }
 
-const OtherPostsSection = styled.section`
+const OtherPostsSection = styled.aside`
   padding-left: 16px;
   width: 25%;
 `
@@ -125,7 +126,7 @@ const BackNote = styled.span`
   width: 100%;
 `
 
-const PostContent = styled.section`
+const PostContent = styled.article`
   padding-left: 16px;
   padding-right: 16px;
   width: 65%;
@@ -134,7 +135,7 @@ const PostTitle = styled.h1`
   margin-top: 0;
   text-align: center;
 `
-const PostCover = styled.div``
+const PostCover = styled.section``
 const PostCoverImage = styled(NonStretchedImage)`
   border-radius: 0.4rem;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
@@ -149,6 +150,7 @@ export const pageQuery = graphql`
       excerpt
       frontmatter {
         title
+        excerpt
         cover {
           childImageSharp {
             fluid(maxWidth: 860) {

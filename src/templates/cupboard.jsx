@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Helmet from "react-helmet"
 import { graphql } from "gatsby"
 import styled from "@emotion/styled"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -8,7 +7,6 @@ import { OutboundLink } from "gatsby-plugin-google-analytics"
 import Intro from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
-import config from "../../data/SiteConfig"
 
 export default class Cupboard extends Component {
   render() {
@@ -19,7 +17,12 @@ export default class Cupboard extends Component {
     } = this.props
     return (
       <Layout fullWidth>
-        <Helmet title={`Шкаф | ${config.siteTitle}`} />
+        <SEO
+          title="Шкаф"
+          description="Здесь складываются видосы, статьи, заметки, картинки, которые меня
+          поддёрнули. Основная цель - уловить смену интересов. А чё,
+          занятно будет глянуть, как менялся фокус."
+        />
         <Intro>
           Ни&nbsp;для кого не&nbsp;секрет (это ирония, возможно для кого-то
           и&nbsp;секрет), что все рассказы, мнения, доступные технологии
@@ -28,7 +31,6 @@ export default class Cupboard extends Component {
           поддёрнули. Основная цель &mdash; уловить смену интересов. А&nbsp;чё,
           занятно будет глянуть, как менялся фокус.
         </Intro>
-        <SEO />
         <CupboardList>
           {cupboard.map(post => {
             const { origin, title, association } = post.node.frontmatter

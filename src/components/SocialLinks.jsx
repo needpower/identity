@@ -15,7 +15,7 @@ import config from "../../data/SiteConfig"
 
 class SocialLinks extends Component {
   render() {
-    const { postNode, postPath, mobile } = this.props
+    const { postNode, postPath, mobile, className } = this.props
     const post = postNode.frontmatter
     const url = urljoin(config.siteUrl, config.pathPrefix, postPath)
     const iconSize = mobile ? 36 : 48
@@ -23,7 +23,7 @@ class SocialLinks extends Component {
     const renderShareCount = count => <ShareCount>{filter(count)}</ShareCount>
 
     return (
-      <SocialLinksList>
+      <SocialLinksList className={className}>
         <SocialLinksTitle>Этим стоит поделиться:</SocialLinksTitle>
         <FacebookShareButton url={url} quote={postNode.excerpt}>
           <FacebookIcon round size={iconSize} />
