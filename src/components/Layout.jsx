@@ -1,4 +1,5 @@
 import React from "react"
+import Helmet from "react-helmet"
 import { Global, css } from "@emotion/core"
 import styled from "@emotion/styled"
 import Footer from "./Footer"
@@ -8,6 +9,25 @@ const Layout = props => {
   const { fullWidth, leftColumn, children } = props
   return (
     <LayoutFlex>
+      <Helmet>
+        <link
+          rel="shortcut icon"
+          href="/logos/favicon.png"
+          type="image/x-icon"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/logos/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/logos/favicon-16x16.png"
+        />
+      </Helmet>
       <Global styles={globalStyles} />
       <Header />
       <ContentWrapper fullWidth={fullWidth}>

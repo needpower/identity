@@ -23,7 +23,7 @@ export default class PostTemplate extends React.Component {
         <SEO
           title={post.title}
           description={post.excerpt}
-          image={cover.src}
+          image={cover ? cover.src : null}
           pathname={`/notes${slug}`}
           isArticle
         />

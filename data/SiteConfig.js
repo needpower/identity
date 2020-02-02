@@ -2,7 +2,7 @@ const config = {
   siteTitle: "Хроника Артёма Любчука", // Site title.
   siteTitleShort: "Артём Любчук", // Short site title for homescreen (PWA). Preferably should be under 12 characters to prevent truncation.
   siteTitleAlt: "Хроника Артёма Любчука (needpower)", // Alternative site title for SEO.
-  siteLogo: "/logos/logo-1024.png", // Logo used for SEO and manifest.
+  siteLogo: "/logos/android-chrome-512.png", // Logo used for SEO and manifest.
   siteUrl: "https://www.alyubchuk.ru", // Domain of your website without pathPrefix.
   pathPrefix: "/", // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
   siteDescription: "Рассказываю о технологиях, волнениях и открытиях.", // Website description used for RSS feeds/meta description tag.
