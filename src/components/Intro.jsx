@@ -1,4 +1,5 @@
-import styled from "@emotion/styled";
+import styled from "@emotion/styled"
+import { phone } from "../utils/mediaQueries"
 
 const Intro = styled.section`
   background-color: rgba(97, 98, 71, 1);
@@ -24,6 +25,9 @@ const Intro = styled.section`
     border-left-color: rgba(97, 98, 71, 1);
     bottom: 0;
   }
-`;
+  ${phone} {
+    padding: 88px 16px;
+  }
+`
 
-export default Intro;
+export default Intro
