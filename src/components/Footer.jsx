@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import config from "../../data/SiteConfig"
+import { phone } from "../utils/mediaQueries"
 
 const Footer = ({ className }) => (
   <FooterBlock className={className}>{config.copyright}</FooterBlock>
@@ -31,6 +32,10 @@ const FooterBlock = styled.footer`
     border-width: 0 0 0 100vw;
     border-left-color: rgba(97, 98, 71, 1);
     bottom: 0;
+  }
+  ${phone} {
+    padding-left: 24px;
+    padding-right: 24px;
   }
 `
 

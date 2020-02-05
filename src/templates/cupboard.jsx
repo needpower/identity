@@ -35,11 +35,11 @@ export default class Cupboard extends Component {
           {cupboard.map(post => {
             const { origin, title, association } = post.node.frontmatter
             return (
-              <CupboardReference>
+              <CupboardReference key={origin}>
                 <CupboardHeader>
                   <OutboundLink href={origin}>
-                    <CupboardReferecneTitle>{title}</CupboardReferecneTitle>
                     <FontAwesomeIcon icon={faExternalLinkAlt} size="xs" />
+                    <CupboardReferecneTitle>{title}</CupboardReferecneTitle>
                   </OutboundLink>
                 </CupboardHeader>
                 <CupboardBrief>{association}</CupboardBrief>
@@ -61,7 +61,7 @@ const CupboardReference = styled.article`
   margin-bottom: 4rem;
 `
 const CupboardReferecneTitle = styled.span`
-  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 `
 const CupboardHeader = styled.h2`
   margin-top: 0;

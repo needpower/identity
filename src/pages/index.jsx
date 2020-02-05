@@ -4,6 +4,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import UserLinks from "../components/UserLinks"
 import { siteDescription } from "../../data/SiteConfig"
+import { phone } from "../utils/mediaQueries"
 
 export default () => {
   return (
@@ -40,10 +41,16 @@ export default () => {
 const ProfileIntro = styled.div`
   display: flex;
   justify-content: space-between;
+  ${phone} {
+    flex-direction: column;
+  }
 `
 const ImageWrapper = styled.div`
   margin-right: 1rem;
   width: 30%;
+  ${phone} {
+    width: 100%;
+  }
 `
 const ProfileImage = styled.img`
   border-radius: 0.4rem;
@@ -51,4 +58,7 @@ const ProfileImage = styled.img`
 `
 const IntroText = styled.div`
   width: 70%;
+  ${phone} {
+    width: 100%;
+  }
 `

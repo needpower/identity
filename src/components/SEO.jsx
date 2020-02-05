@@ -26,6 +26,23 @@ const SEO = ({ title, description, image, pathname, isArticle }) => (
       }
       return (
         <Helmet title={seo.title} titleTemplate={titleTemplate}>
+          <link
+            rel="shortcut icon"
+            href="/logos/favicon.png"
+            type="image/x-icon"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/logos/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/logos/favicon-16x16.png"
+          />
           <meta name="description" content={seo.description} />
           <meta name="image" content={seo.image} />
           {/* OpenGraph tags */}

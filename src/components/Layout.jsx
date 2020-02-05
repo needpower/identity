@@ -1,33 +1,14 @@
 import React from "react"
-import Helmet from "react-helmet"
 import { Global, css } from "@emotion/core"
 import styled from "@emotion/styled"
 import Footer from "./Footer"
 import Header from "./Header"
+import { phone } from "../utils/mediaQueries"
 
 const Layout = props => {
   const { fullWidth, leftColumn, children } = props
   return (
     <LayoutFlex>
-      <Helmet>
-        <link
-          rel="shortcut icon"
-          href="/logos/favicon.png"
-          type="image/x-icon"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/logos/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/logos/favicon-16x16.png"
-        />
-      </Helmet>
       <Global styles={globalStyles} />
       <Header />
       <ContentWrapper fullWidth={fullWidth}>
@@ -45,6 +26,9 @@ const LayoutFlex = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  ${phone} {
+    position: relative;
+  }
 `
 
 const ContentWrapper = styled.div`
@@ -55,6 +39,10 @@ const ContentWrapper = styled.div`
   max-width: ${({ fullWidth }) => (fullWidth ? "100%" : "1280px")};
   padding: ${({ fullWidth }) => (fullWidth ? "0" : "0 16px")};
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "1280px")};
+  ${phone} {
+    margin-top: 0;
+    width: 100%;
+  }
 `
 
 const Sidebar = styled.aside`

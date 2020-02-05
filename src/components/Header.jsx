@@ -74,6 +74,7 @@ const Nav = styled.nav`
   ${phone} {
     align-items: flex-start;
     background-color: #ffffff;
+    box-shadow: 1px 0 16px rgba(97, 98, 71, 0.7);
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
@@ -82,7 +83,7 @@ const Nav = styled.nav`
     position: absolute;
     top: 0;
     transform: ${({ isMenuOpened }) =>
-      isMenuOpened ? "translateX(0)" : "translateX(-310px)"};
+      isMenuOpened ? "translateX(0)" : "translateX(-336px)"};
     width: 320px;
     z-index: 1;
   }
