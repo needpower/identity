@@ -10,6 +10,7 @@ import NonStretchedImage from "../components/NonStretchedImage"
 import SocialLinks from "../components/SocialLinks"
 import SEO from "../components/SEO"
 import { options } from "../utils/typography"
+import { phone } from "../utils/mediaQueries"
 
 export default class PostTemplate extends React.Component {
   render() {
@@ -42,7 +43,11 @@ export default class PostTemplate extends React.Component {
               </PostCover>
             )}
             <section dangerouslySetInnerHTML={{ __html: postNode.html }} />
-            <SocialLinks postNode={postNode} postPath={`/notes${slug}`} />
+            <SocialLinks
+              postNode={postNode}
+              postPath={`/notes${slug}`}
+              mobile
+            />
           </PostContent>
           <OtherPostsSidebar posts={otherPosts} />
         </PostFlexContainer>
@@ -77,12 +82,22 @@ function OtherPostsSidebar({ posts }) {
 }
 
 const OtherPostsSection = styled.aside`
+  margin-top: 24px;
   padding-left: 16px;
   width: 25%;
+  ${phone} {
+    background-color: #f5f5f5;
+    margin-top: 48px;
+    padding: 16px;
+    width: 100%;
+  }
 `
 
 const OtherPostsSectionHeader = styled.h4`
   margin-top: 0;
+  ${phone} {
+    margin-bottom: 16px;
+  }
 `
 
 const OtherPost = styled.div`
@@ -107,11 +122,17 @@ const PostFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 16px;
+  ${phone} {
+    flex-direction: column;
+  }
 `
 
 const PostBack = styled.div`
   font-size: 1.6rem;
   width: 10%;
+  ${phone} {
+    width: 100%;
+  }
 `
 
 const BackLink = styled(Link)`
@@ -130,10 +151,18 @@ const PostContent = styled.article`
   padding-left: 16px;
   padding-right: 16px;
   width: 65%;
+  ${phone} {
+    margin-top: 24px;
+    padding: 0;
+    width: 100%;
+  }
 `
 const PostTitle = styled.h1`
   margin-top: 0;
   text-align: center;
+  ${phone} {
+    text-align: left;
+  }
 `
 const PostCover = styled.section``
 const PostCoverImage = styled(NonStretchedImage)`
