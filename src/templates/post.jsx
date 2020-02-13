@@ -34,7 +34,7 @@ export default class PostTemplate extends React.Component {
             <>
               <PostCoverOverlap />
               <PostCover>
-                <Img
+                <PostCoverImage
                   fluid={cover}
                   objectFit="cover"
                   objectPosition="center center"
@@ -94,6 +94,8 @@ const OtherPostsSection = styled.aside`
   padding-left: 16px;
   width: 25%;
   ${phone} {
+    background-color: #f5f5f5;
+    padding: 16px;
     margin-top: 48px;
     width: 100%;
   }
@@ -181,6 +183,10 @@ const PostHeader = styled.section`
   position: relative;
   margin-bottom: 32px;
   min-height: 400px;
+  padding: 0 16px;
+  ${phone} {
+    min-height: 200px;
+  }
 `
 const PostCover = styled.div`
   height: 100%;
@@ -190,6 +196,9 @@ const PostCover = styled.div`
   top: 0;
   width: 100%;
   z-index: 1;
+`
+const PostCoverImage = styled(Img)`
+  height: 100%;
 `
 const PostCoverOverlap = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
