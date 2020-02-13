@@ -157,7 +157,7 @@ const Logo = styled(Link)`
     position: absolute;
     right: 0;
     border-style: solid;
-    border-width: 0 0 4px 112px;
+    border-width: 0 0 4px 116px;
     border-bottom-color: rgba(97, 98, 71, 1);
     width: 100%;
     z-index: -1;
