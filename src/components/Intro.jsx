@@ -30,4 +30,9 @@ const Intro = styled.section`
   }
 `
 
+export const IntroLink = styled.a`
+  color: #ffffff;
+  border-bottom: 1px solid;
+`
+
 export default Intro
