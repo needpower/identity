@@ -1,5 +1,5 @@
 ---
-cover: /assets/octagon.png
+cover: /assets/octagon.jpg
 title: Портал единоборств &laquo;Октагон&raquo;
 slug: octagon
 timeframes: сентябрь&nbsp;&mdash; ноябрь 2015
