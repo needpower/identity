@@ -40,3 +40,28 @@ collections:
           widget: "list",
           allow_add: false,
         }
+
+  - name: projects
+    label: "Проекты"
+    folder: "projects"
+    create: true
+    slug: "{{slug}}.md"
+    fields:
+      - {
+          label: "Обложка",
+          name: "cover",
+          widget: "image",
+          required: false,
+          default: "/assets/venus.jpg",
+        }
+      - { label: "Название", name: "title", widget: "string" }
+      - { label: "URL", name: "slug", widget: "string" }
+      - { label: "Время создания", name: "timeframes", widget: "string" }
+      - { label: "Результат", name: "result", widget: string }
+      - {
+          label: "Технологии",
+          name: "technologies",
+          widget: "list",
+          field: { label: Название, name: "name", widget: "string" },
+        }
+      - { label: "Описание", name: "description", widget: "markdown" }

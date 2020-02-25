@@ -49,7 +49,7 @@ const HeaderTag = styled.header`
   position: relative;
   ${phone} {
     width: 100%;
-    z-index: 2;
+    z-index: 11;
   }
 `
 
@@ -85,7 +85,7 @@ const Nav = styled.nav`
     transform: ${({ isMenuOpened }) =>
       isMenuOpened ? "translateX(0)" : "translateX(-336px)"};
     width: 320px;
-    z-index: 1;
+    z-index: 10;
   }
 `
 
@@ -139,11 +139,29 @@ const LogoWrapper = styled.div`
 `
 
 const Logo = styled(Link)`
-  color: rgba(43, 174, 102, 1);
+  color: #ffffff;
+  background-color: rgba(97, 98, 71, 1);
   background-image: none;
   border-bottom: none;
   display: inline-block;
+  padding: 0 8px;
+  position: relative;
   text-decoration: none;
+  &:hover {
+    color: #ffffff;
+  }
+  &:before {
+    background-color: rgba(97, 98, 71, 1);
+    content: "";
+    top: -4px;
+    position: absolute;
+    right: 0;
+    border-style: solid;
+    border-width: 0 0 4px 116px;
+    border-bottom-color: rgba(97, 98, 71, 1);
+    width: 100%;
+    z-index: -1;
+  }
 `
 
 const Header = styled(HeaderComponent)``

@@ -50,6 +50,12 @@ exports.createPages = async ({ graphql, actions }) => {
     context: {},
   })
 
+  createPage({
+    path: "/projects",
+    component: path.resolve("./src/templates/projects-listing.jsx"),
+    context: {},
+  })
+
   // Get a full list of markdown posts
   const markdownQueryResult = await graphql(`
     {

@@ -1,12 +1,12 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
+import Img from "gatsby-image"
 import styled from "@emotion/styled"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 import Layout from "../components/Layout"
-import NonStretchedImage from "../components/NonStretchedImage"
 import SocialLinks from "../components/SocialLinks"
 import SEO from "../components/SEO"
 import { options } from "../utils/typography"
@@ -28,6 +28,21 @@ export default class PostTemplate extends React.Component {
           pathname={`/notes${slug}`}
           isArticle
         />
+        <PostHeader>
+          <PostTitle>{post.title}</PostTitle>
+          {cover && (
+            <>
+              <PostCoverOverlap />
+              <PostCover>
+                <PostCoverImage
+                  fluid={cover}
+                  objectFit="cover"
+                  objectPosition="center center"
+                />
+              </PostCover>
+            </>
+          )}
+        </PostHeader>
         <PostFlexContainer>
           <PostBack>
             <BackLink to="/notes">
@@ -36,12 +51,6 @@ export default class PostTemplate extends React.Component {
             </BackLink>
           </PostBack>
           <PostContent>
-            <PostTitle>{post.title}</PostTitle>
-            {cover && (
-              <PostCover>
-                <PostCoverImage fluid={cover} objectPosition="center center" />
-              </PostCover>
-            )}
             <section dangerouslySetInnerHTML={{ __html: postNode.html }} />
             <SocialLinks
               postNode={postNode}
@@ -82,13 +91,12 @@ function OtherPostsSidebar({ posts }) {
 }
 
 const OtherPostsSection = styled.aside`
-  margin-top: 24px;
   padding-left: 16px;
   width: 25%;
   ${phone} {
     background-color: #f5f5f5;
-    margin-top: 48px;
     padding: 16px;
+    margin-top: 48px;
     width: 100%;
   }
 `
@@ -158,17 +166,48 @@ const PostContent = styled.article`
   }
 `
 const PostTitle = styled.h1`
-  margin-top: 0;
+  color: #ffffff;
+  margin: 0;
+  position: relative;
   text-align: center;
+  text-shadow: 1px 1px 4px #000000;
+  z-index: 3;
   ${phone} {
     text-align: left;
   }
 `
-const PostCover = styled.section``
-const PostCoverImage = styled(NonStretchedImage)`
-  border-radius: 0.4rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
-  margin: 0 auto 1.6rem;
+const PostHeader = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 32px;
+  min-height: 400px;
+  padding: 0 16px;
+  ${phone} {
+    min-height: 200px;
+  }
+`
+const PostCover = styled.div`
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+`
+const PostCoverImage = styled(Img)`
+  height: 100%;
+`
+const PostCoverOverlap = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
 `
 
 export const pageQuery = graphql`
@@ -182,7 +221,7 @@ export const pageQuery = graphql`
         excerpt
         cover {
           childImageSharp {
-            fluid(maxWidth: 860) {
+            fluid(maxWidth: 1280, maxHeight: 420) {
               ...GatsbyImageSharpFluid_withWebp
               presentationWidth
             }
