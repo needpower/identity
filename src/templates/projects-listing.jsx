@@ -5,6 +5,7 @@ import Intro, { IntroLink } from "../components/Intro"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import Tile from "../components/Tile"
+import { phone } from "../utils/mediaQueries"
 
 export default class Listing extends Component {
   render() {
@@ -31,6 +32,7 @@ export default class Listing extends Component {
         <TilesContainer>
           {projects.map(project => (
             <Tile
+              key={project.node.frontmatter.slug}
               image={project.node.frontmatter.cover}
               reference={project.node.frontmatter.slug}
               title={project.node.frontmatter.title}
@@ -51,6 +53,11 @@ const TilesContainer = styled.div`
   width: 1280px;
   max-width: 1280px;
   margin: 0 auto;
+  ${phone} {
+    max-width: 100%;
+    padding: 0 16px 24px;
+    width: 100%;
+  }
 `
 
 export const projectsQuery = graphql`
