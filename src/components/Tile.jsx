@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import styled from "@emotion/styled"
 import NonStretchedImage from "./NonStretchedImage"
+import { phone } from "../utils/mediaQueries"
 
 const Tile = ({ image, reference, title }) => (
   <TileItem>
@@ -37,6 +38,12 @@ const TileItem = styled.div`
   &:hover {
     box-shadow: 0 15px 32px rgba(0, 0, 0, 0.1);
     transform: scale(1.04);
+  }
+  ${phone} {
+    flex-basis: 100%;
+    margin-right: 0;
+    max-width: 100%;
+    width: 100%;
   }
 `
 
