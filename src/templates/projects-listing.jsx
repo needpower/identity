@@ -18,7 +18,7 @@ export default class Listing extends Component {
       <Layout fullWidth>
         <SEO
           title="Проекты"
-          description="Описание проектов, в которых принимал участие"
+          description="Описание проектов, в которых принимал участие. О работе в компаниях"
         />
         <Intro>
           <p>Рассказываю про проекты, в которых принимал участие.</p>
@@ -34,7 +34,7 @@ export default class Listing extends Component {
             <Tile
               key={project.node.frontmatter.slug}
               image={project.node.frontmatter.cover}
-              reference={project.node.frontmatter.slug}
+              reference={`/projects/${project.node.frontmatter.slug}`}
               title={project.node.frontmatter.title}
             />
           ))}
