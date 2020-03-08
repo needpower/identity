@@ -113,12 +113,20 @@ exports.createPages = async ({ graphql, actions }) => {
               frontmatter {
                 cover {
                   childImageSharp {
-                    fluid(maxWidth: 320) {
+                    fluid(maxWidth: 320, maxHeight: 460) {
+                      base64
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
                       presentationWidth
                     }
                   }
                 }
                 slug
+                timeframes
                 title
               }
             }

@@ -3,10 +3,10 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import styled from "@emotion/styled"
 import NonStretchedImage from "./NonStretchedImage"
-import { phone } from "../utils/mediaQueries"
 
-const Tile = ({ image, reference, title }) => (
+const Tile = ({ image, reference, title, metainfo }) => (
   <TileItem>
+    <TileMetaInfo dangerouslySetInnerHTML={{ __html: metainfo }} />
     <TileImageWrapper>
       <TileImage fluid={image.childImageSharp.fluid} />
     </TileImageWrapper>
@@ -24,27 +24,34 @@ Tile.propTypes = {
   image: PropTypes.object.isRequired,
   reference: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  metainfo: PropTypes.string,
+}
+
+Tile.defaultProps = {
+  metainfo: "",
 }
 
 const TileItem = styled.div`
   box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+  flex-basis: 100%;
   position: relative;
-  flex-basis: calc(99.9% * 1 / 3);
-  height: 17rem;
-  margin: 0 1.25rem 1.6rem 0;
-  max-width: calc(99.9% * 1 / 3 - 1.25rem);
+  height: 100%;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  width: calc(99.9% * 1 / 3);
+  width: 100%;
   &:hover {
     box-shadow: 0 15px 32px rgba(0, 0, 0, 0.1);
     transform: scale(1.04);
   }
-  ${phone} {
-    flex-basis: 100%;
-    margin-right: 0;
-    max-width: 100%;
-    width: 100%;
-  }
+`
+
+const TileMetaInfo = styled.span`
+  color: #ffffff;
+  display: inline-block;
+  left: 1rem;
+  position: absolute;
+  text-shadow: 1px 1px 4px #000000;
+  top: 1rem;
+  z-index: 2;
 `
 
 const TileLink = styled(Link)`
@@ -97,12 +104,13 @@ const TileImage = styled(NonStretchedImage)`
 
 const TileText = styled.div`
   color: #f0f0f0;
-  margin: 0 1rem 1.25rem 1.25rem;
+  margin-bottom: 1.25rem;
   text-shadow: none;
 `
 
 const TileTitle = styled.h3`
   color: #f0f0f0;
+  hyphens: auto;
   line-height: 2rem;
   margin-bottom: 0;
 `
