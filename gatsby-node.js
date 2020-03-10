@@ -93,7 +93,65 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/templates/post.jsx"),
       context: {
         slug: edge.node.fields.slug,
-        otherPosts: postsEdges,
+        otherPosts: postsEdges.filter(
+          post => post.node.fields.slug !== edge.node.fields.slug
+        ),
+      },
+    })
+  })
+
+  // Single project page
+  const projectsLisitngPage = await graphql(
+    `
+      {
+        allMarkdownRemark(
+          filter: { fileAbsolutePath: { regex: "/projects/.*.md$/" } }
+          limit: 5
+        ) {
+          edges {
+            node {
+              frontmatter {
+                cover {
+                  childImageSharp {
+                    fluid(maxWidth: 320, maxHeight: 460) {
+                      base64
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      presentationWidth
+                    }
+                  }
+                }
+                slug
+                timeframes
+                title
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
+  if (projectsLisitngPage.errors) {
+    console.error(projectsLisitngPage.errors)
+    throw projectsLisitngPage.errors
+  }
+
+  const projectsEdges = projectsLisitngPage.data.allMarkdownRemark.edges
+  projectsEdges.forEach(edge => {
+    createPage({
+      path: `/projects/${edge.node.frontmatter.slug}`,
+      component: path.resolve("./src/templates/project.jsx"),
+      context: {
+        slug: edge.node.frontmatter.slug,
+        otherProjects: projectsEdges.filter(
+          project =>
+            project.node.frontmatter.slug !== edge.node.frontmatter.slug
+        ),
       },
     })
   })

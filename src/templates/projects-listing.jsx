@@ -18,7 +18,7 @@ export default class Listing extends Component {
       <Layout fullWidth>
         <SEO
           title="Проекты"
-          description="Описание проектов, в которых принимал участие"
+          description="Описание проектов, в которых принимал участие. О работе в компаниях"
         />
         <Intro>
           <p>Рассказываю про проекты, в которых принимал участие.</p>
@@ -31,12 +31,14 @@ export default class Listing extends Component {
         </Intro>
         <TilesContainer>
           {projects.map(project => (
-            <Tile
-              key={project.node.frontmatter.slug}
-              image={project.node.frontmatter.cover}
-              reference={project.node.frontmatter.slug}
-              title={project.node.frontmatter.title}
-            />
+            <TileItem key={project.node.frontmatter.slug}>
+              <Tile
+                image={project.node.frontmatter.cover}
+                reference={`/projects/${project.node.frontmatter.slug}`}
+                title={project.node.frontmatter.title}
+                metainfo={project.node.frontmatter.timeframes}
+              />
+            </TileItem>
           ))}
         </TilesContainer>
       </Layout>
@@ -60,6 +62,20 @@ const TilesContainer = styled.div`
   }
 `
 
+const TileItem = styled.div`
+  flex-basis: calc(99.9% * 1 / 3);
+  height: 17rem;
+  max-width: calc(99.9% * 1 / 3 - 1.25rem);
+  width: calc(99.9% * 1 / 3);
+  margin: 0 1.25rem 1.6rem 0;
+  ${phone} {
+    flex-basis: 100%;
+    margin-right: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+`
+
 export const projectsQuery = graphql`
   query ProjectsQuery {
     allMarkdownRemark(
@@ -71,13 +87,20 @@ export const projectsQuery = graphql`
             cover {
               childImageSharp {
                 fluid(maxWidth: 640) {
-                  ...GatsbyImageSharpFluid_withWebp
+                  base64
+                  aspectRatio
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  sizes
                   presentationWidth
                 }
               }
             }
             slug
             title
+            timeframes
           }
         }
       }
