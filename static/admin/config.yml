@@ -16,6 +16,7 @@ collections:
     folder: "content"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}.md"
+    preview_path: notes/{{fields.slug}}
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
       - { label: "Дата публикации", name: "date", widget: "datetime" }
@@ -46,6 +47,7 @@ collections:
     folder: "projects"
     create: true
     slug: "{{slug}}.md"
+    preview_path: projects/{{fields.slug}}
     fields:
       - {
           label: "Обложка",
