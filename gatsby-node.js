@@ -106,7 +106,6 @@ exports.createPages = async ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           filter: { fileAbsolutePath: { regex: "/projects/.*.md$/" } }
-          limit: 5
         ) {
           edges {
             node {
@@ -148,10 +147,12 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/templates/project.jsx"),
       context: {
         slug: edge.node.frontmatter.slug,
-        otherProjects: projectsEdges.filter(
-          project =>
-            project.node.frontmatter.slug !== edge.node.frontmatter.slug
-        ),
+        otherProjects: projectsEdges
+          .filter(
+            project =>
+              project.node.frontmatter.slug !== edge.node.frontmatter.slug
+          )
+          .slice(0, 4),
       },
     })
   })
