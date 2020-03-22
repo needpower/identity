@@ -29,7 +29,7 @@ export default class PostTemplate extends React.Component {
           isArticle
         />
         <PostHeader>
-          <PostTitle>{post.title}</PostTitle>
+          <PostTitle dangerouslySetInnerHTML={{ __html: post.title }} />
           {cover && (
             <>
               <PostCoverOverlap />

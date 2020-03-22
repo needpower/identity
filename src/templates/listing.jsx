@@ -37,10 +37,13 @@ export default class Listing extends Component {
               <Article key={slug}>
                 <header>
                   <ArticleHeader>
-                    <Link to={`/notes/${slug}`}>{title}</Link>
+                    <Link
+                      to={`/notes/${slug}`}
+                      dangerouslySetInnerHTML={{ __html: title }}
+                    />
                   </ArticleHeader>
                 </header>
-                <ArticleBrief>{excerpt}</ArticleBrief>
+                <ArticleBrief dangerouslySetInnerHTML={{ __html: excerpt }} />
                 <ArticleMeta>
                   {format(new Date(dateISO), "dd MMMM yyyy", {
                     locale: ru,
