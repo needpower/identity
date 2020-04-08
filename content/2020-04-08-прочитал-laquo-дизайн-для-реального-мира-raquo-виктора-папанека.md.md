@@ -4,6 +4,6 @@ date: 2020-04-08T07:00:51.600Z
 cover: /assets/papanek-design.jpg
 slug: papanek-design-for-real-world
 category: образование
-excerpt: 'Для лучшего запоминания, описываю что узнал из этой книги'
+excerpt: 'Для лучшего отложения в памяти, описываю что узнал из этой книги'
 ---
 в
