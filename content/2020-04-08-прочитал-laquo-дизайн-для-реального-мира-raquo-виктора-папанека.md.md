@@ -6,4 +6,4 @@ slug: papanek-design-for-real-world
 category: образование
 excerpt: 'Для лучшего отложения в памяти, описываю что узнал из этой книги'
 ---
-в
+pass
