@@ -227,7 +227,6 @@ export const pageQuery = graphql`
           }
         }
         date
-        category
       }
       fields {
         slug

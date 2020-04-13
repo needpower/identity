@@ -71,7 +71,6 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             frontmatter {
               title
-              category
               date
             }
           }
