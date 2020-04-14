@@ -42,7 +42,9 @@ export default class Cupboard extends Component {
                     <CupboardReferecneTitle>{title}</CupboardReferecneTitle>
                   </OutboundLink>
                 </CupboardHeader>
-                <CupboardBrief>{association}</CupboardBrief>
+                <CupboardBrief
+                  dangerouslySetInnerHTML={{ __html: association }}
+                />
               </CupboardReference>
             )
           })}
