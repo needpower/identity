@@ -47,7 +47,7 @@ export default class PostTemplate extends React.Component {
           <PostBack>
             <BackLink to="/notes">
               <BackNote>Ко всем постам</BackNote>
-              <FontAwesomeIcon icon={faArrowLeft} />
+              <FontAwesomeIcon icon={faArrowLeft} size="xs" />
             </BackLink>
           </PostBack>
           <PostContent>
