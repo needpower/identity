@@ -6,7 +6,7 @@ import UserLinks from "../components/UserLinks"
 import { siteDescription } from "../../data/SiteConfig"
 import { phone } from "../utils/mediaQueries"
 
-export default () => {
+const RootPage = () => {
   return (
     <Layout>
       <SEO title="Начало" description={siteDescription} />
@@ -36,6 +36,8 @@ export default () => {
     </Layout>
   )
 }
+
+export default RootPage
 
 const ProfileIntro = styled.div`
   display: flex;
