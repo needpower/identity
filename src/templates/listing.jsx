@@ -30,7 +30,7 @@ export default class Listing extends Component {
           </p>
         </Intro>
         <Articles>
-          {data.allMarkdownRemark.edges.map(post => {
+          {data.allMarkdownRemark.edges.map((post) => {
             const { slug } = post.node.fields
             const { date: dateISO, excerpt, title } = post.node.frontmatter
             return (
@@ -38,7 +38,7 @@ export default class Listing extends Component {
                 <header>
                   <ArticleHeader>
                     <Link
-                      to={`/notes/${slug}`}
+                      to={`/notes${slug}`}
                       dangerouslySetInnerHTML={{ __html: title }}
                     />
                   </ArticleHeader>

@@ -35,7 +35,7 @@ export default class ProjectTemplate extends React.Component {
         />
         <Technologies>
           Используемые инструменты:{" "}
-          {project.technologies.map(technology => (
+          {project.technologies.map((technology) => (
             <Tech key={technology}>{technology}</Tech>
           ))}
         </Technologies>
@@ -47,7 +47,7 @@ export default class ProjectTemplate extends React.Component {
         <OtherProjects>
           <OtherProjectsTitle>Другие проекты</OtherProjectsTitle>
           <OtherProjectsContent>
-            {otherProjects.map(otherProject => (
+            {otherProjects.map((otherProject) => (
               <TileItem key={otherProject.node.frontmatter.slug}>
                 <Tile
                   image={otherProject.node.frontmatter.cover}

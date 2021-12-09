@@ -53,12 +53,11 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // Get a full list of markdown posts
-  const markdownQueryResult = await graphql(`
+  const markdownPostsQueryResult = await graphql(`
     {
       allMarkdownRemark(
         sort: { fields: [frontmatter___date], order: DESC }
         filter: { fileAbsolutePath: { regex: "/content/.*.md$/" } }
-        limit: 5
       ) {
         edges {
           node {
@@ -75,22 +74,22 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  if (markdownQueryResult.errors) {
-    console.error(markdownQueryResult.errors)
-    throw markdownQueryResult.errors
+  if (markdownPostsQueryResult.errors) {
+    console.error(markdownPostsQueryResult.errors)
+    throw markdownPostsQueryResult.errors
   }
 
   // Post page creating
-  const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges
-  postsEdges.forEach(edge => {
+  const posts = markdownPostsQueryResult.data.allMarkdownRemark.edges
+  posts.forEach((edge) => {
     createPage({
       path: `/notes${edge.node.fields.slug}`,
       component: path.resolve("./src/templates/post.jsx"),
       context: {
         slug: edge.node.fields.slug,
-        otherPosts: postsEdges.filter(
-          post => post.node.fields.slug !== edge.node.fields.slug
-        ),
+        otherPosts: posts
+          .slice(0, 5)
+          .filter((post) => post.node.fields.slug !== edge.node.fields.slug),
       },
     })
   })
@@ -135,16 +134,16 @@ exports.createPages = async ({ graphql, actions }) => {
     throw projectsLisitngPage.errors
   }
 
-  const projectsEdges = projectsLisitngPage.data.allMarkdownRemark.edges
-  projectsEdges.forEach(edge => {
+  const projects = projectsLisitngPage.data.allMarkdownRemark.edges
+  projects.forEach((edge) => {
     createPage({
       path: `/projects/${edge.node.frontmatter.slug}`,
       component: path.resolve("./src/templates/project.jsx"),
       context: {
         slug: edge.node.frontmatter.slug,
-        otherProjects: projectsEdges
+        otherProjects: projects
           .filter(
-            project =>
+            (project) =>
               project.node.frontmatter.slug !== edge.node.frontmatter.slug
           )
           .slice(0, 4),

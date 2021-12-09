@@ -69,15 +69,14 @@ function OtherPostsSidebar({ posts }) {
   return (
     <OtherPostsSection>
       <OtherPostsSectionHeader>Свежак</OtherPostsSectionHeader>
-      {posts.map(post => (
+      {posts.map((post) => (
         <OtherPost key={post.node.fields.slug}>
           <OtherPostTitle>
             <OtherPostLink
-              to={`/notes/${post.node.fields.slug}`}
+              to={`/notes${post.node.fields.slug}`}
               activeClassName="active"
-            >
-              {post.node.frontmatter.title}
-            </OtherPostLink>
+              dangerouslySetInnerHTML={{ __html: post.node.frontmatter.title }}
+            />
             <OtherPostDate>
               {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {
                 locale: ru,

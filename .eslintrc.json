@@ -5,6 +5,13 @@
     "react/prefer-stateless-function": "off",
     "react/prop-types": "off",
     "react/no-danger": "off",
+    "react/function-component-definition": [
+      "warning",
+      {
+        "namedComponents": "function-expression",
+        "unnamedComponents": "function-expression"
+      }
+    ],
     // "react/destructuring-assignment": [true, "always"],
     "jsx-a11y/anchor-is-valid": [
       "error",

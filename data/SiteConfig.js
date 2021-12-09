@@ -9,7 +9,7 @@ const config = {
   siteRss: "/rss.xml", // Path to the RSS file.
   siteFBAppID: "1825356251115265", // FB Application ID for using app insights
   googleAnalyticsID: "UA-157386560-1", // GA tracking ID.
-  postDefaultCategoryID: "на обдумать", // Default category for posts.
+  postDefaultCategoryID: "history", // Default category for posts.
   userEmail: "artemlyubchuk@mail.ru", // Email used for RSS feed's author segment
   copyright:
     "Артём Любчук (needpower). Права не защищал. Берите, если хочется.", // Copyright string for the footer of the website and RSS feed.
