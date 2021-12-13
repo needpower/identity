@@ -70,6 +70,9 @@
   ],
   "license": "MIT",
   "main": "n/a",
+  "engines": {
+    "node": ">=14.15.0"
+  },
   "scripts": {
     "develop": "gatsby develop",
     "dev": "npm run develop",
