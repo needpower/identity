@@ -1,6 +1,7 @@
 ---
 title: У меня нет аккаунта в Instagram, Tik-Tok, и вот почему
 date: 2022-01-01T15:31:32.951Z
+cover: /assets/social-networks-distance.png
 slug: no-instagram-tiktok-heres-why
 category: соц сеть
 excerpt: Я намеренно не захожу в Instagram, Tik-Tok. Делаю ставку на то, что так
