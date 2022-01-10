@@ -1,4 +1,3 @@
-import DirectionInput from "./DirectionInput"
 import heroImage from "./images/characters/people/hero.png"
 import npc1Image from "./images/characters/people/npc1.png"
 import npc2Image from "./images/characters/people/npc2.png"
@@ -9,7 +8,8 @@ import lowerKitchenSceneImage from "./images/maps/KitchenLower.png"
 import upperKitchenSceneImage from "./images/maps/KitchenUpper.png"
 import Person from "./Person"
 
-const directionsListener = new DirectionInput()
+const CAMERA_NUDGE_X = 10.5
+const CAMERA_NUDGE_Y = 6
 
 export default class OverworldMap {
   constructor(config) {
@@ -22,20 +22,25 @@ export default class OverworldMap {
     this.upperImage.src = config.upperImage
   }
 
-  drawLowerImage(ctx) {
-    ctx.drawImage(this.lowerImage, 0, 0)
+  drawLowerImage(ctx, cameraPerson) {
+    ctx.drawImage(
+      this.lowerImage,
+      0 + withGrid(CAMERA_NUDGE_X) - cameraPerson.x,
+      0 + withGrid(CAMERA_NUDGE_Y) - cameraPerson.y
+    )
   }
 
-  drawUpperImage(ctx) {
-    ctx.drawImage(this.upperImage, 0, 0)
+  drawUpperImage(ctx, cameraPerson) {
+    ctx.drawImage(
+      this.upperImage,
+      0 + withGrid(CAMERA_NUDGE_X) - cameraPerson.x,
+      0 + withGrid(CAMERA_NUDGE_Y) - cameraPerson.y
+    )
   }
 
-  drawGameObjects(ctx) {
+  drawGameObjects(ctx, cameraPerson) {
     Object.values(this.gameObjects).forEach((gameObject) => {
-      gameObject.update({
-        direction: directionsListener.direction,
-      })
-      gameObject.draw(ctx)
+      gameObject.draw(ctx, cameraPerson)
     })
   }
 }

@@ -13,8 +13,8 @@ export default class GameObject {
     })
   }
 
-  draw(ctx) {
-    this.sprite.draw(ctx)
+  draw(ctx, cameraPerson) {
+    this.sprite.draw(ctx, cameraPerson)
   }
 
   update(state) {}

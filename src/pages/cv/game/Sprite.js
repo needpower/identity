@@ -1,5 +1,8 @@
 import shadowImage from "./images/characters/shadow.png"
 
+const CAMERA_NUDGE_X = 10.5
+const CAMERA_NUDGE_Y = 6
+
 export default class Sprite {
   constructor(config) {
     this.gameObject = config.gameObject
@@ -49,7 +52,7 @@ export default class Sprite {
 
     this.currentAnimation = config.currentAnimation || "idleDown"
     this.currentAnimationFrame = 0
-    // how fast (in frames) animation should change
+    // how long (in FPS) each animation frame should be on a screen
     this.animationFrameLimit = config.animationFrameLimit || 8
     this.animationFrameProgress = config.animationFrameLimit
   }
@@ -82,12 +85,30 @@ export default class Sprite {
     }
   }
 
-  draw(ctx) {
-    const x = this.gameObject.x - 8
-    const y = this.gameObject.y - 16
+  draw(ctx, cameraPerson) {
+    const x = this.gameObject.x - 8 + withGrid(CAMERA_NUDGE_X) - cameraPerson.x
+    const y = this.gameObject.y - 16 + withGrid(CAMERA_NUDGE_Y) - cameraPerson.y
     const [frameX, frameY] = this.frame
+    const FRAME_WIDTH = 32
+    const FRAME_HEIGHT = 32
     ctx.drawImage(this.shadow, x, y)
-    ctx.drawImage(this.image, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32)
+    ctx.drawImage(
+      this.image,
+      frameX * FRAME_WIDTH,
+      frameY * FRAME_HEIGHT,
+      FRAME_WIDTH,
+      FRAME_HEIGHT,
+      x,
+      y,
+      FRAME_WIDTH,
+      FRAME_HEIGHT
+    )
     this.updateAnimationProgress()
   }
+}
+
+// Normalize value to move object around the map by adding/subtracting 1
+function withGrid(value) {
+  const MAP_CELL_SIZE = 16
+  return Number(value) * MAP_CELL_SIZE
 }
