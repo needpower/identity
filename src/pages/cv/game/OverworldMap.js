@@ -1,3 +1,4 @@
+import { CAMERA_NUDGE_X, CAMERA_NUDGE_Y, MAP_CELL_SIZE } from "./config"
 import heroImage from "./images/characters/people/hero.png"
 import npc1Image from "./images/characters/people/npc1.png"
 import npc2Image from "./images/characters/people/npc2.png"
@@ -8,9 +9,6 @@ import lowerKitchenSceneImage from "./images/maps/KitchenLower.png"
 import upperKitchenSceneImage from "./images/maps/KitchenUpper.png"
 import Person from "./Person"
 
-const CAMERA_NUDGE_X = 10.5
-const CAMERA_NUDGE_Y = 6
-
 export default class OverworldMap {
   constructor(config) {
     this.gameObjects = config.gameObjects
@@ -20,6 +18,8 @@ export default class OverworldMap {
 
     this.upperImage = new Image()
     this.upperImage.src = config.upperImage
+
+    this.walls = config.walls
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -43,6 +43,32 @@ export default class OverworldMap {
       gameObject.draw(ctx, cameraPerson)
     })
   }
+
+  mountGameObjects() {
+    Object.values(this.gameObjects).forEach((gameObject) => {
+      gameObject.mount(this)
+    })
+  }
+
+  isSpaceTaken(x, y, direction) {
+    const hypotheticPositionOfWall = nextPosition(x, y, direction)
+    const hypotheticWallCoords = `${hypotheticPositionOfWall.x},${hypotheticPositionOfWall.y}`
+    return this.walls[hypotheticWallCoords]
+  }
+
+  addWall(x, y) {
+    this.walls[`${x},${y}`] = true
+  }
+
+  removeWall(x, y) {
+    delete this.walls[`${x},${y}`]
+  }
+
+  moveWall(wasX, wasY, direction) {
+    this.removeWall(wasX, wasY)
+    const { x: nextX, y: nextY } = nextPosition(wasX, wasY, direction)
+    this.addWall(nextX, nextY)
+  }
 }
 
 export const overworldMapsConfig = {
@@ -63,6 +89,12 @@ export const overworldMapsConfig = {
         x: withGrid(9),
         y: withGrid(7),
       }),
+    },
+    walls: {
+      [asGridCoords(7, 6)]: true,
+      [asGridCoords(8, 6)]: true,
+      [asGridCoords(7, 7)]: true,
+      [asGridCoords(8, 7)]: true,
     },
   },
   Kitchen: {
@@ -87,6 +119,30 @@ export const overworldMapsConfig = {
 
 // Normalize value to move object around the map by adding/subtracting 1
 function withGrid(value) {
-  const MAP_CELL_SIZE = 16
   return Number(value) * MAP_CELL_SIZE
+}
+
+function asGridCoords(x, y) {
+  return `${Number(x) * MAP_CELL_SIZE},${Number(y) * MAP_CELL_SIZE}`
+}
+
+function nextPosition(prevX, prevY, direction) {
+  let [x, y] = [prevX, prevY]
+  switch (direction) {
+    case "up":
+      y = prevY - MAP_CELL_SIZE
+      break
+    case "down":
+      y = prevY + MAP_CELL_SIZE
+      break
+    case "left":
+      x = prevX - MAP_CELL_SIZE
+      break
+    case "right":
+      x = prevX + MAP_CELL_SIZE
+      break
+    default:
+      break
+  }
+  return { x, y }
 }

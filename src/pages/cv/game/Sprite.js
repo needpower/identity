@@ -1,7 +1,5 @@
+import { CAMERA_NUDGE_X, CAMERA_NUDGE_Y, MAP_CELL_SIZE } from "./config"
 import shadowImage from "./images/characters/shadow.png"
-
-const CAMERA_NUDGE_X = 10.5
-const CAMERA_NUDGE_Y = 6
 
 export default class Sprite {
   constructor(config) {
@@ -70,7 +68,7 @@ export default class Sprite {
   }
 
   updateAnimationProgress() {
-    // Downtick the animation progress. Don't stop until it finished
+    // Downtick the animation progress of a single frame. Don't stop until it's finished
     if (this.animationFrameProgress > 0) {
       this.animationFrameProgress -= 1
       return
@@ -109,6 +107,5 @@ export default class Sprite {
 
 // Normalize value to move object around the map by adding/subtracting 1
 function withGrid(value) {
-  const MAP_CELL_SIZE = 16
   return Number(value) * MAP_CELL_SIZE
 }

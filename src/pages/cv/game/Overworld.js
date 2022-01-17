@@ -14,6 +14,7 @@ export default class Overworld {
       Object.values(map.gameObjects).forEach((gameObject) => {
         gameObject.update({
           direction: directionsListener.direction,
+          map,
         })
       })
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -28,6 +29,7 @@ export default class Overworld {
 
   init = () => {
     const demoMap = new OverworldMap(overworldMapsConfig.Demo)
+    demoMap.mountGameObjects()
     this.startGameLoop(demoMap)
   }
 }

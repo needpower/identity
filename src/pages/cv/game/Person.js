@@ -1,6 +1,5 @@
+import { MAP_CELL_SIZE } from "./config"
 import GameObject from "./GameObject"
-
-const MAP_CELL_SIZE = 16
 
 export default class Person extends GameObject {
   constructor(config) {
@@ -18,24 +17,32 @@ export default class Person extends GameObject {
   }
 
   update(state) {
-    this.updatePosition()
+    if (this.movingProgressRemaining > 0) {
+      this.updatePosition()
+    } else {
+      if (state.direction && this.isPlayerControlled) {
+        this.startBehaviour(state.map, {
+          type: "walk",
+          direction: state.direction,
+        })
+      }
+    }
     this.updateSprite(state)
-    if (
-      this.isPlayerControlled &&
-      state.direction &&
-      this.movingProgressRemaining === 0
-    ) {
+  }
+
+  startBehaviour(map, { type, direction }) {
+    if (type === "walk" && !map.isSpaceTaken(this.x, this.y, direction)) {
       this.movingProgressRemaining = MAP_CELL_SIZE
-      this.direction = state.direction
+      this.direction = direction
+      // Person model also carries a wall wherever it moves, so it doesn't overlaps with other models
+      map.moveWall(this.x, this.y, direction)
     }
   }
 
   updatePosition() {
-    if (this.movingProgressRemaining > 0) {
-      const [axis, amount] = this.directionsUpdatesMap[this.direction]
-      this[axis] += amount
-      this.movingProgressRemaining -= 1
-    }
+    const [axis, amount] = this.directionsUpdatesMap[this.direction]
+    this[axis] += amount
+    this.movingProgressRemaining -= 1
   }
 
   updateSprite(state) {
