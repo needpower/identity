@@ -11,6 +11,16 @@ export default class Person extends GameObject {
       right: ["x", 1],
       left: ["x", -1],
     }
+    this.directionToAnimationNameMap = {
+      "idle-up": "idleUp",
+      "walk-up": "walkUp",
+      "idle-down": "idleDown",
+      "walk-down": "walkDown",
+      "idle-left": "idleLeft",
+      "walk-left": "walkLeft",
+      "idle-right": "idleRight",
+      "walk-right": "walkRight",
+    }
     // Grid-based movement
     // One unit of person's step = one grid cell = MAP_CELL_SIZE
     this.movingProgressRemaining = 0
@@ -31,11 +41,18 @@ export default class Person extends GameObject {
   }
 
   startBehaviour(map, { type, direction }) {
-    if (type === "walk" && !map.isSpaceTaken(this.x, this.y, direction)) {
-      this.movingProgressRemaining = MAP_CELL_SIZE
+    if (type === "walk") {
       this.direction = direction
-      // Person model also carries a wall wherever it moves, so it doesn't overlaps with other models
-      map.moveWall(this.x, this.y, direction)
+      if (map.isSpaceTaken(this.x, this.y, direction)) {
+        // Face a character to the specified direction
+        this.setAnimation(
+          this.directionToAnimationNameMap[`idle-${this.direction}`]
+        )
+      } else {
+        this.movingProgressRemaining = MAP_CELL_SIZE
+        // A character also carries a wall wherever it moves, so it doesn't overlaps with other models
+        map.moveWall(this.x, this.y, direction)
+      }
     }
   }
 
@@ -46,28 +63,21 @@ export default class Person extends GameObject {
   }
 
   updateSprite(state) {
-    const directionToAnimationNameMap = {
-      "idle-up": "idleUp",
-      "walk-up": "walkUp",
-      "idle-down": "idleDown",
-      "walk-down": "walkDown",
-      "idle-left": "idleLeft",
-      "walk-left": "walkLeft",
-      "idle-right": "idleRight",
-      "walk-right": "walkRight",
-    }
-
     if (
       this.isPlayerControlled &&
       this.movingProgressRemaining === 0 &&
       !state.direction
     ) {
-      this.setAnimation(directionToAnimationNameMap[`idle-${this.direction}`])
+      this.setAnimation(
+        this.directionToAnimationNameMap[`idle-${this.direction}`]
+      )
       return
     }
 
     if (this.movingProgressRemaining > 0) {
-      this.setAnimation(directionToAnimationNameMap[`walk-${this.direction}`])
+      this.setAnimation(
+        this.directionToAnimationNameMap[`walk-${this.direction}`]
+      )
       return
     }
   }
