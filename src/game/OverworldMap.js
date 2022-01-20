@@ -7,6 +7,7 @@ import lowerDemoSceneImage from "./images/maps/DemoLower.png"
 import upperDemoSceneImage from "./images/maps/DemoUpper.png"
 import lowerKitchenSceneImage from "./images/maps/KitchenLower.png"
 import upperKitchenSceneImage from "./images/maps/KitchenUpper.png"
+import OverworldEvent, { PERSON_STAND, PERSON_WALKING } from "./OverworldEvent"
 import Person from "./Person"
 
 export default class OverworldMap {
@@ -18,6 +19,8 @@ export default class OverworldMap {
 
     this.upperImage = new Image()
     this.upperImage.src = config.upperImage
+
+    this.isCutscenePlaying = false
 
     this.walls = config.walls
   }
@@ -39,15 +42,50 @@ export default class OverworldMap {
   }
 
   drawGameObjects(ctx, cameraPerson) {
-    Object.values(this.gameObjects).forEach((gameObject) => {
-      gameObject.draw(ctx, cameraPerson)
-    })
+    Object.values(this.gameObjects)
+      .sort((obj1, obj2) => obj1.y - obj2.y)
+      .forEach((gameObject) => {
+        gameObject.draw(ctx, cameraPerson)
+      })
   }
 
   mountGameObjects() {
-    Object.values(this.gameObjects).forEach((gameObject) => {
-      gameObject.mount(this)
+    Object.entries(this.gameObjects).forEach(([objectId, gameObject]) => {
+      gameObject.mount(this, objectId)
     })
+  }
+
+  async startCutscene(events) {
+    this.isCutscenePlaying = true
+
+    for (let index = 0; index < events.length; index++) {
+      const cutsceneEvent = events[index]
+      const overworldEvent = new OverworldEvent({
+        map: this,
+        event: cutsceneEvent,
+      })
+      await overworldEvent.run()
+    }
+
+    this.isCutscenePlaying = false
+  }
+
+  async doCutsceneLoop(map) {
+    if (this.behaviourLoop.length === 0) {
+      return
+    }
+    const eventConfig = this.behaviourLoop[this.behaviourLoopEventsIndex]
+    const overworldEvent = new OverworldEvent({
+      map,
+      event: { ...eventConfig, who: this.objectId },
+    })
+    await overworldEvent.run()
+    this.behaviourLoopEventsIndex += 1
+    if (this.behaviourLoopEventsIndex === this.behaviourLoop.length) {
+      this.behaviourLoopEventsIndex = 0
+    }
+    // As it's a loop, repeat it recursively
+    this.doBehaviourLoop(map)
   }
 
   isSpaceTaken(x, y, direction) {
@@ -86,8 +124,18 @@ export const overworldMapsConfig = {
       npc1: new Person({
         src: npc1Image,
         useShadow: true,
-        x: withGrid(9),
+        x: withGrid(3),
         y: withGrid(7),
+        behaviourLoop: [
+          { type: PERSON_WALKING, direction: "left" },
+          { type: PERSON_WALKING, direction: "down" },
+          { type: PERSON_WALKING, direction: "down" },
+          { type: PERSON_WALKING, direction: "right" },
+          { type: PERSON_STAND, direction: "up", time: 500 },
+          { type: PERSON_WALKING, direction: "up" },
+          { type: PERSON_WALKING, direction: "up" },
+          { type: PERSON_STAND, direction: "up", time: 300 },
+        ],
       }),
     },
     walls: {

@@ -54,7 +54,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   createPage({
     path: "/cv",
-    component: path.resolve("./src/pages/cv/cv.jsx"),
+    component: path.resolve("./src/pages/cv.jsx"),
     context: {},
   })
 

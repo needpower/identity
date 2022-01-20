@@ -1,5 +1,12 @@
 import { MAP_CELL_SIZE } from "./config"
 import GameObject from "./GameObject"
+import {
+  emitEvent,
+  PERSON_STAND,
+  PERSON_STAND_COMPLETE,
+  PERSON_WALKING,
+  PERSON_WALKING_COMPLETE,
+} from "./OverworldEvent"
 
 export default class Person extends GameObject {
   constructor(config) {
@@ -30,29 +37,48 @@ export default class Person extends GameObject {
     if (this.movingProgressRemaining > 0) {
       this.updatePosition()
     } else {
-      if (state.direction && this.isPlayerControlled) {
+      if (
+        !state.map.isCutscenePlaying &&
+        state.direction &&
+        this.isPlayerControlled
+      ) {
         this.startBehaviour(state.map, {
-          type: "walk",
+          type: PERSON_WALKING,
           direction: state.direction,
         })
       }
     }
-    this.updateSprite(state)
+    this.updateSprite()
   }
 
-  startBehaviour(map, { type, direction }) {
-    if (type === "walk") {
-      this.direction = direction
+  startBehaviour(map, behaviour) {
+    const { type, direction, time, retry } = behaviour
+    this.direction = direction
+    if (type === PERSON_WALKING) {
       if (map.isSpaceTaken(this.x, this.y, direction)) {
         // Face a character to the specified direction
         this.setAnimation(
           this.directionToAnimationNameMap[`idle-${this.direction}`]
         )
-      } else {
-        this.movingProgressRemaining = MAP_CELL_SIZE
-        // A character also carries a wall wherever it moves, so it doesn't overlaps with other models
-        map.moveWall(this.x, this.y, direction)
+        if (retry) {
+          setTimeout(() => {
+            this.startBehaviour(map, behaviour)
+          }, 10)
+        }
+        return
       }
+      // Ready to walk
+      // A character also carries a wall wherever it moves, so it doesn't overlaps with other models
+      this.movingProgressRemaining = MAP_CELL_SIZE
+      map.moveWall(this.x, this.y, direction)
+    }
+
+    if (type === PERSON_STAND) {
+      setTimeout(() => {
+        emitEvent(PERSON_STAND_COMPLETE, {
+          who: this.objectId,
+        })
+      }, time)
     }
   }
 
@@ -60,25 +86,23 @@ export default class Person extends GameObject {
     const [axis, amount] = this.directionsUpdatesMap[this.direction]
     this[axis] += amount
     this.movingProgressRemaining -= 1
+
+    if (this.movingProgressRemaining === 0) {
+      emitEvent(PERSON_WALKING_COMPLETE, {
+        who: this.objectId,
+      })
+    }
   }
 
-  updateSprite(state) {
-    if (
-      this.isPlayerControlled &&
-      this.movingProgressRemaining === 0 &&
-      !state.direction
-    ) {
-      this.setAnimation(
-        this.directionToAnimationNameMap[`idle-${this.direction}`]
-      )
-      return
-    }
-
+  updateSprite() {
     if (this.movingProgressRemaining > 0) {
       this.setAnimation(
         this.directionToAnimationNameMap[`walk-${this.direction}`]
       )
       return
     }
+    this.setAnimation(
+      this.directionToAnimationNameMap[`idle-${this.direction}`]
+    )
   }
 }

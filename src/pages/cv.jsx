@@ -1,8 +1,5 @@
 import React, { Component } from "react"
-import Intro from "../../components/Intro"
-import Layout from "../../components/Layout"
-import SEO from "../../components/SEO"
-import CVExplorerGame from "./game/CVExplorer"
+import CVExplorerGame from "../game/CVExplorer"
 
 export default class CV extends Component {
   render() {
