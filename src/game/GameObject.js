@@ -35,7 +35,11 @@ export default class GameObject {
   }
 
   async doBehaviourLoop(map) {
-    if (map.isCutscenePlaying || this.behaviourLoop.length === 0) {
+    if (
+      map.isCutscenePlaying ||
+      this.behaviourLoop.length === 0 ||
+      this.isStanding
+    ) {
       return
     }
     const eventConfig = this.behaviourLoop[this.behaviourLoopEventsIndex]

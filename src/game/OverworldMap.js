@@ -68,24 +68,11 @@ export default class OverworldMap {
     }
 
     this.isCutscenePlaying = false
-  }
 
-  async doCutsceneLoop(map) {
-    if (this.behaviourLoop.length === 0) {
-      return
-    }
-    const eventConfig = this.behaviourLoop[this.behaviourLoopEventsIndex]
-    const overworldEvent = new OverworldEvent({
-      map,
-      event: { ...eventConfig, who: this.objectId },
-    })
-    await overworldEvent.run()
-    this.behaviourLoopEventsIndex += 1
-    if (this.behaviourLoopEventsIndex === this.behaviourLoop.length) {
-      this.behaviourLoopEventsIndex = 0
-    }
-    // As it's a loop, repeat it recursively
-    this.doBehaviourLoop(map)
+    // After a cutscene, restore behaviour loop for each object
+    Object.values(this.gameObjects).forEach((gameObject) =>
+      gameObject.doBehaviourLoop(this)
+    )
   }
 
   isSpaceTaken(x, y, direction) {
@@ -149,6 +136,13 @@ export const overworldMapsConfig = {
     lowerImage: lowerKitchenSceneImage,
     upperImage: upperKitchenSceneImage,
     gameObjects: {
+      hero: new Person({
+        src: heroImage,
+        useShadow: true,
+        isPlayerControlled: true,
+        x: withGrid(6),
+        y: withGrid(7),
+      }),
       npc2: new Person({
         src: npc2Image,
         useShadow: true,

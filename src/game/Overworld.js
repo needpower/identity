@@ -35,14 +35,15 @@ export default class Overworld {
     const demoMap = new OverworldMap(overworldMapsConfig.Demo)
     demoMap.mountGameObjects()
     this.startGameLoop(demoMap)
-    demoMap.startCutscene([
-      { who: "hero", type: PERSON_WALKING, direction: "down" },
-      { who: "hero", type: PERSON_WALKING, direction: "down" },
-      { who: "hero", type: PERSON_STAND, direction: "left", time: 100 },
-      { who: "npc1", type: PERSON_WALKING, direction: "down" },
-      { who: "npc1", type: PERSON_WALKING, direction: "down" },
-      { who: "npc1", type: PERSON_WALKING, direction: "right" },
-      { who: "npc1", type: PERSON_WALKING, direction: "right" },
-    ])
+    // demoMap.startCutscene([
+    //   { who: "hero", type: PERSON_WALKING, direction: "down" },
+    //   { who: "hero", type: PERSON_WALKING, direction: "down" },
+    //   { who: "hero", type: PERSON_STAND, direction: "left", time: 100 },
+    //   { who: "npc1", type: PERSON_WALKING, direction: "down" },
+    //   { who: "npc1", type: PERSON_WALKING, direction: "down" },
+    //   { who: "npc1", type: PERSON_WALKING, direction: "right" },
+    //   { who: "npc1", type: PERSON_WALKING, direction: "right" },
+    //   { who: "npc1", type: PERSON_STAND, direction: "right", time: 1000 },
+    // ])
   }
 }

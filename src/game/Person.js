@@ -31,22 +31,23 @@ export default class Person extends GameObject {
     // Grid-based movement
     // One unit of person's step = one grid cell = MAP_CELL_SIZE
     this.movingProgressRemaining = 0
+    this.isStanding = false
   }
 
   update(state) {
     if (this.movingProgressRemaining > 0) {
       this.updatePosition()
-    } else {
-      if (
-        !state.map.isCutscenePlaying &&
-        state.direction &&
-        this.isPlayerControlled
-      ) {
-        this.startBehaviour(state.map, {
-          type: PERSON_WALKING,
-          direction: state.direction,
-        })
-      }
+    }
+    if (
+      this.movingProgressRemaining === 0 &&
+      !state.map.isCutscenePlaying &&
+      state.direction &&
+      this.isPlayerControlled
+    ) {
+      this.startBehaviour(state.map, {
+        type: PERSON_WALKING,
+        direction: state.direction,
+      })
     }
     this.updateSprite()
   }
@@ -68,16 +69,18 @@ export default class Person extends GameObject {
         return
       }
       // Ready to walk
-      // A character also carries a wall wherever it moves, so it doesn't overlaps with other models
+      // A character also carries a wall wherever he moves, so he doesn't overlaps with other models
       this.movingProgressRemaining = MAP_CELL_SIZE
       map.moveWall(this.x, this.y, direction)
     }
 
     if (type === PERSON_STAND) {
+      this.isStanding = true
       setTimeout(() => {
         emitEvent(PERSON_STAND_COMPLETE, {
           who: this.objectId,
         })
+        this.isStanding = false
       }, time)
     }
   }
