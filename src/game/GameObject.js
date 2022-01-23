@@ -10,6 +10,7 @@ export default class GameObject {
     this.y = config.y || 0
     this.direction = config.direction || "down"
     this.behaviourLoop = config.behaviourLoop || []
+    this.talking = config.talking || []
     this.behaviourLoopEventsIndex = 0
     this.sprite = new Sprite({
       gameObject: this,

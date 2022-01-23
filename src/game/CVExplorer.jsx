@@ -27,6 +27,7 @@ export default class CVExplorerGame extends Component {
           height={CANVAS_HEIGHT}
           width={CANVAS_WIDTH}
         />
+        <div id="text-message"></div>
       </Container>
     )
   }

@@ -7,11 +7,17 @@ import lowerDemoSceneImage from "./images/maps/DemoLower.png"
 import upperDemoSceneImage from "./images/maps/DemoUpper.png"
 import lowerKitchenSceneImage from "./images/maps/KitchenLower.png"
 import upperKitchenSceneImage from "./images/maps/KitchenUpper.png"
-import OverworldEvent, { PERSON_STAND, PERSON_WALKING } from "./OverworldEvent"
+import OverworldEvent, {
+  CHANGE_MAP,
+  DISPLAY_MESSAGE,
+  PERSON_STAND,
+  PERSON_WALKING,
+} from "./OverworldEvent"
 import Person from "./Person"
 
 export default class OverworldMap {
-  constructor(config) {
+  constructor(config, overworld) {
+    this.overworld = overworld
     this.gameObjects = config.gameObjects
 
     this.lowerImage = new Image()
@@ -20,9 +26,10 @@ export default class OverworldMap {
     this.upperImage = new Image()
     this.upperImage.src = config.upperImage
 
-    this.isCutscenePlaying = false
+    this.walls = config.walls || {}
 
-    this.walls = config.walls
+    this.isCutscenePlaying = false
+    this.cutsceneSpaces = config.cutsceneSpaces || {}
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -53,6 +60,31 @@ export default class OverworldMap {
     Object.entries(this.gameObjects).forEach(([objectId, gameObject]) => {
       gameObject.mount(this, objectId)
     })
+  }
+
+  checkForActionsCutscene() {
+    const hero = this.gameObjects["hero"]
+    const actionCutscenePosition = nextPosition(hero.x, hero.y, hero.direction)
+    const gameObjectOnPosition = Object.values(this.gameObjects).find(
+      (object) =>
+        object.x === actionCutscenePosition.x &&
+        object.y === actionCutscenePosition.y
+    )
+    if (
+      !this.isCutscenePlaying &&
+      gameObjectOnPosition &&
+      gameObjectOnPosition.talking.length
+    ) {
+      this.startCutscene(gameObjectOnPosition.talking[0].events)
+    }
+  }
+
+  checkForFootstepCutscene() {
+    const hero = this.gameObjects["hero"]
+    const cutsceneSpaces = this.cutsceneSpaces[`${hero.x},${hero.y}`]
+    if (!this.isCutscenePlaying && cutsceneSpaces && cutsceneSpaces.length) {
+      this.startCutscene(cutsceneSpaces[0].events)
+    }
   }
 
   async startCutscene(events) {
@@ -123,6 +155,25 @@ export const overworldMapsConfig = {
           { type: PERSON_WALKING, direction: "up" },
           { type: PERSON_STAND, direction: "up", time: 300 },
         ],
+        talking: [
+          {
+            events: [
+              {
+                type: DISPLAY_MESSAGE,
+                text: "Hello!",
+                faceHero: "npc1",
+              },
+              { type: DISPLAY_MESSAGE, text: "Welcome to the Pizza Legends!" },
+              { who: "hero", type: PERSON_WALKING, direction: "up" },
+            ],
+          },
+        ],
+      }),
+      npc2: new Person({
+        src: npc2Image,
+        useShadow: true,
+        x: withGrid(8),
+        y: withGrid(5),
       }),
     },
     walls: {
@@ -130,6 +181,26 @@ export const overworldMapsConfig = {
       [asGridCoords(8, 6)]: true,
       [asGridCoords(7, 7)]: true,
       [asGridCoords(8, 7)]: true,
+    },
+    cutsceneSpaces: {
+      [asGridCoords(7, 4)]: [
+        {
+          events: [
+            { who: "npc2", type: PERSON_WALKING, direction: "left" },
+            { who: "npc2", type: PERSON_STAND, direction: "up", time: 500 },
+            { type: DISPLAY_MESSAGE, text: "You can't be in there!" },
+            { who: "npc2", type: PERSON_WALKING, direction: "right" },
+            { who: "npc2", type: PERSON_STAND, direction: "down" },
+            { who: "hero", type: PERSON_WALKING, direction: "down" },
+            { who: "hero", type: PERSON_WALKING, direction: "left" },
+          ],
+        },
+      ],
+      [asGridCoords(5, 10)]: [
+        {
+          events: [{ type: CHANGE_MAP, map: "Kitchen" }],
+        },
+      ],
     },
   },
   Kitchen: {
@@ -140,14 +211,8 @@ export const overworldMapsConfig = {
         src: heroImage,
         useShadow: true,
         isPlayerControlled: true,
-        x: withGrid(6),
-        y: withGrid(7),
-      }),
-      npc2: new Person({
-        src: npc2Image,
-        useShadow: true,
-        x: withGrid(8),
-        y: withGrid(6),
+        x: withGrid(5),
+        y: withGrid(10),
       }),
       npc3: new Person({
         src: npc3Image,
