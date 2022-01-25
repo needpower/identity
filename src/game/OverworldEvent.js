@@ -1,6 +1,7 @@
 import React from "react"
 import TextMessage from "./TextMessage"
-import { render, unmountComponentAtNode } from "react-dom"
+import { render, unmountComponentAtNode, hydrate } from "react-dom"
+import SceneTransition from "./SceneTransition"
 
 /**
  * Overworld event responsible for evoking events of any type suported by the game.
@@ -65,22 +66,26 @@ export default class OverworldEvent {
       const heroOppositeDirection = oppositeDirection(hero.direction)
       gameObject.direction = heroOppositeDirection
     }
-    const message = React.createElement(
-      TextMessage,
-      {
-        onComplete: () => {
-          unmountComponentAtNode(document.getElementById("text-message"))
-          resolve()
-        },
+    const message = React.createElement(TextMessage, {
+      text: this.event.text,
+      onComplete: () => {
+        unmountComponentAtNode(document.getElementById("text-message"))
+        resolve()
       },
-      this.event.text
-    )
+    })
     render(message, document.getElementById("text-message"))
   }
 
   changeMap(resolve) {
-    this.map.overworld.startMap(this.event.map)
-    resolve()
+    const mapTransitionInstance = React.createRef()
+    const mapTransition = React.createElement(SceneTransition, {
+      onComplete: () => {
+        this.map.overworld.startMap(this.event.map)
+        resolve()
+      },
+      ref: mapTransitionInstance,
+    })
+    render(mapTransition, document.getElementById("scene-transition"))
   }
 }
 

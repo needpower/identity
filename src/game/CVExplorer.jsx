@@ -28,6 +28,7 @@ export default class CVExplorerGame extends Component {
           width={CANVAS_WIDTH}
         />
         <div id="text-message"></div>
+        <div id="scene-transition"></div>
       </Container>
     )
   }
