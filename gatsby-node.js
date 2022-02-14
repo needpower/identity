@@ -52,12 +52,6 @@ exports.createPages = async ({ graphql, actions }) => {
     context: {},
   })
 
-  createPage({
-    path: "/cv",
-    component: path.resolve("./src/pages/cv.jsx"),
-    context: {},
-  })
-
   // Get a full list of markdown posts
   const markdownPostsQueryResult = await graphql(`
     {
