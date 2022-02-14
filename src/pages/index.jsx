@@ -12,7 +12,7 @@ const RootPage = () => {
       <SEO title="Начало" description={siteDescription} />
       <ProfileIntro>
         <ImageWrapper>
-          <ProfileImage src="/assets/profile.jpg" alt="Фото на паспорт" />
+          <ProfileImage src="/assets/profile-2.jpg" alt="Фото на паспорт" />
         </ImageWrapper>
         <IntroText>
           <p>Привет, я&nbsp;Артём.</p>
